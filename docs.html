@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MobGrab - Documentation</title>
+    <meta name="description" content="Full documentation for MobGrab including permissions, commands, configuration, and compatibility.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="navbar-inner">
+        <a href="index.html" class="navbar-brand">MobGrab</a>
+        <button class="menu-toggle" onclick="document.querySelector('.navbar-links').classList.toggle('open')">&#9776;</button>
+        <ul class="navbar-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="docs.html" class="active">Documentation</a></li>
+            <li><a href="https://github.com/ThConMan/MobGrab">GitHub</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="docs-container">
+
+    <h1 style="font-size:2rem; color:var(--accent); margin: 1.5rem 0 0.25rem;">Documentation</h1>
+    <p style="color:var(--text-dim); margin-bottom:2rem;">Complete reference for MobGrab v1.3.0</p>
+
+    <nav class="toc">
+        <h3>Contents</h3>
+        <ul>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#usage">How to Use</a></li>
+            <li><a href="#permissions">Permissions</a></li>
+            <li><a href="#commands">Commands</a></li>
+            <li><a href="#config">Configuration</a></li>
+            <li><a href="#mob-info">Mob Info Display</a></li>
+            <li><a href="#trades">Villager Trades</a></li>
+            <li><a href="#compatibility">Compatibility</a></li>
+        </ul>
+    </nav>
+
+    <section id="overview">
+        <h2>Overview</h2>
+        <p>MobGrab lets players pick up mobs by shift + right-clicking them. The mob turns into a player head item with full data preserved &mdash; health, equipment, trades, name, variant, everything. Right-click a block to place the mob back down exactly as it was.</p>
+        <div class="grid">
+            <div class="grid-item">
+                <h4>85+ Mobs</h4>
+                <p>Every mob in 1.21.11 supported with custom head textures.</p>
+            </div>
+            <div class="grid-item">
+                <h4>Full Data</h4>
+                <p>Trades, profession, level, equipment, enchants &mdash; all preserved.</p>
+            </div>
+            <div class="grid-item">
+                <h4>Region Protection</h4>
+                <p>Respects WorldGuard, PlotSquared, and GriefPrevention.</p>
+            </div>
+            <div class="grid-item">
+                <h4>Bedrock Support</h4>
+                <p>Form-based GUI for Bedrock players via Floodgate.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="usage">
+        <h2>How to Use</h2>
+        <h3>Picking Up</h3>
+        <p><strong>Sneak + Right-click</strong> a mob to pick it up. It becomes a player head item in your inventory with the mob's face, stats, and data shown in the lore.</p>
+        <p>If your inventory is full, the item drops at your feet.</p>
+
+        <h3>Placing Down</h3>
+        <p>Hold the mob item and <strong>right-click</strong> any block to place the mob back down. All data is restored &mdash; trades, health, name, equipment, everything.</p>
+
+        <div class="note">Mobs picked up by one player can be placed by anyone with the <code>mobgrab.place</code> permission. The items are tradeable and storable.</div>
+    </section>
+
+    <section id="permissions">
+        <h2>Permissions</h2>
+
+        <h3>Bundle Permissions</h3>
+        <p>Grant entire categories of mobs at once.</p>
+        <table>
+            <tr><th>Permission</th><th>Description</th><th>Default</th></tr>
+            <tr><td><code>mobgrab.pickup.*</code></td><td>Pick up all mobs (includes all bundles)</td><td><span class="tag tag-default">false</span></td></tr>
+            <tr><td><code>mobgrab.pickup.passive</code></td><td>All passive mobs (cows, sheep, horses, etc.)</td><td><span class="tag tag-default">false</span></td></tr>
+            <tr><td><code>mobgrab.pickup.hostile</code></td><td>All hostile mobs (zombies, skeletons, etc.)</td><td><span class="tag tag-default">false</span></td></tr>
+            <tr><td><code>mobgrab.pickup.villager</code></td><td>Villagers and zombie villagers</td><td><span class="tag tag-default">false</span></td></tr>
+            <tr><td><code>mobgrab.pickup.utility</code></td><td>Iron golems, snow golems, copper golems</td><td><span class="tag tag-default">false</span></td></tr>
+            <tr><td><code>mobgrab.pickup.boss</code></td><td>Warden, Wither, Ender Dragon</td><td><span class="tag tag-default">false</span></td></tr>
+        </table>
+
+        <h3>Individual Mob Permissions</h3>
+        <p>Every mob has its own permission node: <code>mobgrab.pickup.&lt;mob&gt;</code></p>
+        <p>For example: <code>mobgrab.pickup.cow</code>, <code>mobgrab.pickup.villager</code>, <code>mobgrab.pickup.creeper</code></p>
+        <p>The mob name matches the Bukkit EntityType in lowercase. All individual permissions are listed in <code>plugin.yml</code> and are discoverable in LuckPerms.</p>
+
+        <h3>Core Permissions</h3>
+        <table>
+            <tr><th>Permission</th><th>Description</th><th>Default</th></tr>
+            <tr><td><code>mobgrab.place</code></td><td>Place mob items back down</td><td><span class="tag tag-default">false</span></td></tr>
+            <tr><td><code>mobgrab.admin</code></td><td>Access <code>/mobgrab</code> commands and GUI</td><td><span class="tag tag-op">op</span></td></tr>
+            <tr><td><code>mobgrab.bypass.protection</code></td><td>Ignore region protection checks</td><td><span class="tag tag-op">op</span></td></tr>
+        </table>
+
+        <div class="note">Players need <strong>both</strong> the pickup permission for a mob <strong>and</strong> the mob must be enabled in config. Either condition missing will prevent pickup.</div>
+    </section>
+
+    <section id="commands">
+        <h2>Commands</h2>
+        <table>
+            <tr><th>Command</th><th>Description</th><th>Permission</th></tr>
+            <tr><td><code>/mobgrab gui</code></td><td>Opens the mob toggle GUI to enable/disable mobs</td><td><code>mobgrab.admin</code></td></tr>
+            <tr><td><code>/mobgrab reload</code></td><td>Reloads the config file</td><td><code>mobgrab.admin</code></td></tr>
+        </table>
+    </section>
+
+    <section id="config">
+        <h2>Configuration</h2>
+        <p>All settings are in <code>plugins/MobGrab/config.yml</code>.</p>
+
+        <h3>Sound Effects</h3>
+        <table>
+            <tr><th>Key</th><th>Default</th><th>Description</th></tr>
+            <tr><td><code>pickup-sound</code></td><td>ENTITY_CHICKEN_EGG</td><td>Sound when picking up a mob</td></tr>
+            <tr><td><code>pickup-sound-volume</code></td><td>0.8</td><td>Volume (0.0 &ndash; 1.0)</td></tr>
+            <tr><td><code>pickup-sound-pitch</code></td><td>1.4</td><td>Pitch (0.5 &ndash; 2.0)</td></tr>
+            <tr><td><code>place-sound</code></td><td>ENTITY_ENDERMAN_TELEPORT</td><td>Sound when placing a mob</td></tr>
+            <tr><td><code>place-sound-volume</code></td><td>0.6</td><td>Volume</td></tr>
+            <tr><td><code>place-sound-pitch</code></td><td>1.2</td><td>Pitch</td></tr>
+        </table>
+
+        <h3>Particle Effects</h3>
+        <table>
+            <tr><th>Key</th><th>Default</th><th>Description</th></tr>
+            <tr><td><code>pickup-particles</code></td><td>SMOKE</td><td>Particle type on pickup</td></tr>
+            <tr><td><code>pickup-particle-count</code></td><td>15</td><td>Number of particles</td></tr>
+            <tr><td><code>place-particles</code></td><td>HAPPY_VILLAGER</td><td>Particle type on place</td></tr>
+            <tr><td><code>place-particle-count</code></td><td>20</td><td>Number of particles</td></tr>
+        </table>
+
+        <h3>Mechanics</h3>
+        <table>
+            <tr><th>Key</th><th>Default</th><th>Description</th></tr>
+            <tr><td><code>cooldown-seconds</code></td><td>1</td><td>Cooldown between pickups per player</td></tr>
+            <tr><td><code>blacklist-mode</code></td><td>false</td><td>false = whitelist (only listed mobs allowed), true = blacklist (all allowed unless listed as false)</td></tr>
+        </table>
+
+        <h3>Mob Toggles</h3>
+        <p>Under <code>enabled-mobs:</code>, each mob type can be set to <code>true</code> or <code>false</code>.</p>
+        <p>In <strong>whitelist mode</strong> (default), only mobs set to <code>true</code> can be picked up. In <strong>blacklist mode</strong>, all mobs can be picked up unless set to <code>false</code>.</p>
+        <p>Mobs can also be toggled in-game via <code>/mobgrab gui</code>.</p>
+
+        <div class="warn">Boss mobs (Warden, Wither, Ender Dragon) are disabled by default. Enable them in config if desired.</div>
+    </section>
+
+    <section id="mob-info">
+        <h2>Mob Info Display</h2>
+        <p>When a mob is picked up, the item shows detailed info in its lore. What's displayed depends on the mob type:</p>
+
+        <table>
+            <tr><th>Info</th><th>Shown On</th></tr>
+            <tr><td>Health</td><td>All living entities</td></tr>
+            <tr><td>Custom name</td><td>Named mobs</td></tr>
+            <tr><td>Owner</td><td>Tamed pets (wolves, cats, parrots, etc.)</td></tr>
+            <tr><td>Baby</td><td>Any ageable mob that isn't adult</td></tr>
+            <tr><td>Sitting</td><td>Tamed pets that are sitting</td></tr>
+            <tr><td>Profession, Level, Trades</td><td>Villagers</td></tr>
+            <tr><td>Color, Style</td><td>Horses</td></tr>
+            <tr><td>Type, Collar</td><td>Cats, Wolves</td></tr>
+            <tr><td>Wool Color, Sheared</td><td>Sheep</td></tr>
+            <tr><td>Variant</td><td>Axolotls, Frogs, Mooshrooms</td></tr>
+            <tr><td>Color</td><td>Parrots, Llamas, Shulkers</td></tr>
+            <tr><td>Type</td><td>Foxes, Rabbits</td></tr>
+            <tr><td>Personality</td><td>Pandas</td></tr>
+            <tr><td>Nectar, Stung, Angry</td><td>Bees</td></tr>
+            <tr><td>Screaming, Horns</td><td>Goats</td></tr>
+            <tr><td>Charged</td><td>Creepers</td></tr>
+            <tr><td>Size</td><td>Slimes, Magma Cubes, Phantoms</td></tr>
+            <tr><td>Pattern, Body Color</td><td>Tropical Fish</td></tr>
+            <tr><td>Puff State</td><td>Pufferfish</td></tr>
+            <tr><td>Shivering</td><td>Striders</td></tr>
+            <tr><td>Weathering State</td><td>Copper Golems</td></tr>
+            <tr><td>Equipment &amp; Enchants</td><td>Any mob with armor or held items</td></tr>
+        </table>
+    </section>
+
+    <section id="trades">
+        <h2>Villager Trades</h2>
+        <p>Villager items display a full trade list with icons:</p>
+<pre>Trades (6)
+  &#x1F48E; 24x Emerald + &#x1F4D6; Book  &#x2192;  &#x1F4D6; Mending I
+  &#x1F33E; 20x Wheat  &#x2192;  &#x1F48E; Emerald
+  &#x1F4D6; Book  &#x2192;  &#x1F48E; Emerald
+  &#x1F48E; 5x Emerald  &#x2192;  &#x1F6E1;&#xFE0F; Shield
+  ...</pre>
+        <ul>
+            <li>Each trade shows ingredients and result with item icons</li>
+            <li>Multi-ingredient trades display a <code>+</code> between inputs</li>
+            <li>Enchanted book trades show the enchantment name directly as the result</li>
+            <li>Exhausted trades (no uses left) appear with strikethrough</li>
+        </ul>
+    </section>
+
+    <section id="compatibility">
+        <h2>Compatibility</h2>
+        <p>All integrations are soft dependencies &mdash; MobGrab works fine without any of them installed.</p>
+
+        <h3>Region Protection</h3>
+        <p>Mobs can only be picked up or placed where the player has build permission. Supports:</p>
+        <ul>
+            <li><strong>WorldGuard</strong> &mdash; checks the BUILD flag</li>
+            <li><strong>PlotSquared</strong> &mdash; checks plot ownership and membership</li>
+            <li><strong>GriefPrevention</strong> &mdash; checks claim build access</li>
+        </ul>
+        <p>Use <code>mobgrab.bypass.protection</code> to skip these checks.</p>
+
+        <h3>RoseStacker</h3>
+        <p>When picking up a mob from a RoseStacker stack, only one mob is removed from the stack instead of the whole group.</p>
+
+        <h3>Floodgate / Geyser</h3>
+        <p>Bedrock players automatically get a form-based GUI for <code>/mobgrab gui</code> instead of the chest inventory.</p>
+
+        <h3>ClickVillagers Migration</h3>
+        <p>MobGrab can place villager items created by ClickVillagers. Players can right-click to place their old ClickVillagers items normally. When they pick the villager up again, it becomes a MobGrab item going forward.</p>
+    </section>
+
+</div>
+
+<footer>
+    <p>MobGrab &mdash; made by <a href="https://nomonom.net">Con</a></p>
+</footer>
+
+</body>
+</html>
