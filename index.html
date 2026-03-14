@@ -24,9 +24,10 @@
 <section class="hero">
     <h1>Mob<span>Grab</span></h1>
     <p class="tagline">Pick up any mob as an item. Place them back down. All data preserved.</p>
-    <div class="version-badge">Paper 1.21.11+ &bull; v1.3.0</div>
+    <div class="version-badge" id="version-badge">Paper 1.21.11+</div>
     <div class="hero-buttons">
-        <a href="docs.html" class="btn btn-primary">Read the Docs</a>
+        <a href="https://github.com/ThConMan/MobGrab/releases/latest" class="btn btn-primary" id="download-btn">Download</a>
+        <a href="docs.html" class="btn btn-secondary">Read the Docs</a>
         <a href="https://github.com/ThConMan/MobGrab" class="btn btn-secondary">View on GitHub</a>
     </div>
 </section>
@@ -152,5 +153,22 @@
     <p>MobGrab &mdash; made by <a href="https://nomonom.net">Con</a></p>
 </footer>
 
+<script>
+fetch('https://api.github.com/repos/ThConMan/MobGrab/releases/latest')
+    .then(r => r.json())
+    .then(data => {
+        const badge = document.getElementById('version-badge');
+        const btn = document.getElementById('download-btn');
+        if (data.tag_name) {
+            badge.textContent = 'Paper 1.21.11+ \u2022 ' + data.tag_name;
+        }
+        const jar = data.assets && data.assets.find(a => a.name.endsWith('.jar'));
+        if (jar) {
+            btn.href = jar.browser_download_url;
+            btn.textContent = 'Download ' + data.tag_name;
+        }
+    })
+    .catch(() => {});
+</script>
 </body>
 </html>
