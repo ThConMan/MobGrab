@@ -50,6 +50,20 @@ body {
     color: var(--accent);
     text-decoration: none;
     letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.navbar-logo {
+    height: 32px;
+    width: 32px;
+    object-fit: contain;
+}
+
+.hero-logo {
+    width: min(320px, 80vw);
+    margin-bottom: 0.5rem;
 }
 
 .navbar-links {
