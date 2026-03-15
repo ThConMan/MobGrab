@@ -1,0 +1,167 @@
+# ╔══════════════════════════════════════════════════╗
+# ║              MobGrab Configuration               ║
+# ║            nomonom.net | by Con                   ║
+# ╚══════════════════════════════════════════════════╝
+
+# ─── Sound Effects ────────────────────────────────────
+# All sounds use Bukkit Sound enum names.
+# Full list: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html
+
+# Sound played when a mob is picked up
+pickup-sound: ENTITY_CHICKEN_EGG
+# Volume (0.0 - 1.0) and pitch (0.5 - 2.0)
+pickup-sound-volume: 0.8
+pickup-sound-pitch: 1.4
+
+# Sound played when a mob is placed down
+place-sound: ENTITY_ENDERMAN_TELEPORT
+place-sound-volume: 0.6
+place-sound-pitch: 1.2
+
+# ─── Particle Effects ────────────────────────────────
+# All particles use Bukkit Particle enum names.
+# Full list: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Particle.html
+
+# Particles shown when a mob is picked up
+pickup-particles: SMOKE
+pickup-particle-count: 15
+
+# Particles shown when a mob is placed down
+place-particles: HAPPY_VILLAGER
+place-particle-count: 20
+
+# ─── Mechanics ────────────────────────────────────────
+
+# Cooldown between pickups per player (in seconds)
+# Prevents spam-clicking to accidentally pick up multiple mobs
+cooldown-seconds: 1
+
+# RoseStacker: pick up entire stack or just one mob?
+#   false = take one mob from the stack (stack decrements by 1)
+#   true  = pick up the entire stack (item stores count, placement recreates stack)
+rosestacker-pickup-whole-stack: false
+
+# Mob toggle mode
+#   false = whitelist mode (only mobs listed as 'true' below can be picked up)
+#   true  = blacklist mode (all mobs can be picked up unless listed as 'false')
+blacklist-mode: false
+
+# ─── Geyser / Floodgate (Bedrock Support) ────────────
+# Automatically detected if Floodgate is installed.
+# Bedrock players get a form-based GUI instead of a chest inventory.
+geyser:
+  enabled: true
+  # How many mobs to show per page in the Bedrock form GUI
+  mobs-per-page: 20
+
+# ─── Per-Mob Toggles ─────────────────────────────────
+# Set to true to allow picking up, false to disable.
+# Only applies in whitelist mode (blacklist-mode: false).
+# Players still need the matching permission to pick up a mob.
+#
+# Permission groups (assign in your permissions plugin):
+#   mobgrab.pickup.passive  - All passive/friendly mobs
+#   mobgrab.pickup.hostile  - All hostile mobs
+#   mobgrab.pickup.villager - Villagers only
+#   mobgrab.pickup.utility  - Iron Golems & Snow Golems
+#   mobgrab.pickup.*        - Everything
+#   mobgrab.place           - Place mobs back down
+#   mobgrab.bypass.protection - Ignore region protection
+#   mobgrab.admin           - Access /mobgrab gui & reload
+
+enabled-mobs:
+  # Passive
+  ALLAY: true
+  ARMADILLO: true
+  AXOLOTL: true
+  BAT: true
+  BEE: true
+  CAMEL: true
+  CAT: true
+  CHICKEN: true
+  COD: true
+  COW: true
+  DOLPHIN: true
+  DONKEY: true
+  FOX: true
+  FROG: true
+  GLOW_SQUID: true
+  GOAT: true
+  HORSE: true
+  LLAMA: true
+  MOOSHROOM: true
+  MULE: true
+  OCELOT: true
+  PANDA: true
+  PARROT: true
+  PIG: true
+  POLAR_BEAR: true
+  PUFFERFISH: true
+  RABBIT: true
+  SALMON: true
+  SHEEP: true
+  SNIFFER: true
+  SQUID: true
+  STRIDER: true
+  TADPOLE: true
+  TRADER_LLAMA: true
+  TROPICAL_FISH: true
+  TURTLE: true
+  WANDERING_TRADER: true
+  WOLF: true
+
+  HAPPY_GHAST: true
+
+  # Utility
+  IRON_GOLEM: true
+  SNOW_GOLEM: true
+  COPPER_GOLEM: true
+
+  # Villagers
+  VILLAGER: true
+  ZOMBIE_VILLAGER: true
+
+  # Hostile
+  BLAZE: true
+  BOGGED: true
+  BREEZE: true
+  CAVE_SPIDER: true
+  CREEPER: true
+  DROWNED: true
+  ELDER_GUARDIAN: true
+  ENDERMAN: true
+  ENDERMITE: true
+  EVOKER: true
+  GHAST: true
+  GUARDIAN: true
+  HOGLIN: true
+  HUSK: true
+  MAGMA_CUBE: true
+  PHANTOM: true
+  PIGLIN: true
+  PIGLIN_BRUTE: true
+  PILLAGER: true
+  RAVAGER: true
+  SHULKER: true
+  SILVERFISH: true
+  SKELETON: true
+  SKELETON_HORSE: true
+  SLIME: true
+  SPIDER: true
+  STRAY: true
+  VEX: true
+  VINDICATOR: true
+  WITCH: true
+  WITHER_SKELETON: true
+  ZOGLIN: true
+  ZOMBIE: true
+  ZOMBIE_HORSE: true
+  ZOMBIFIED_PIGLIN: true
+
+  # Hostile (new)
+  CREAKING: true
+
+  # Disabled by default (too OP or game-breaking)
+  WARDEN: false
+  WITHER: false
+  ENDER_DRAGON: false

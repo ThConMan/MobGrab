@@ -1,0 +1,413 @@
+name: MobGrab
+version: '1.4.0'
+main: com.mobgrab.MobGrab
+api-version: '1.21'
+description: Pick up mobs as items and place them back down
+author: Con
+website: https://nomonom.net
+softdepend:
+  - floodgate
+  - WorldGuard
+  - PlotSquared
+  - GriefPrevention
+  - RoseStacker
+commands:
+  mobgrab:
+    description: MobGrab admin commands
+    usage: /mobgrab <gui|reload|update>
+
+permissions:
+  # ════════════════════════════════════════════════════════════════════
+  #  Bundle Permissions (grant groups of mobs at once)
+  # ════════════════════════════════════════════════════════════════════
+
+  mobgrab.pickup.*:
+    description: Pick up all enabled mobs (includes all bundles)
+    default: false
+    children:
+      mobgrab.pickup.passive: true
+      mobgrab.pickup.hostile: true
+      mobgrab.pickup.villager: true
+      mobgrab.pickup.utility: true
+      mobgrab.pickup.boss: true
+
+  mobgrab.pickup.passive:
+    description: Pick up passive mobs (cows, sheep, chickens, etc.)
+    default: false
+    children:
+      mobgrab.pickup.allay: true
+      mobgrab.pickup.armadillo: true
+      mobgrab.pickup.axolotl: true
+      mobgrab.pickup.bat: true
+      mobgrab.pickup.bee: true
+      mobgrab.pickup.camel: true
+      mobgrab.pickup.cat: true
+      mobgrab.pickup.chicken: true
+      mobgrab.pickup.cod: true
+      mobgrab.pickup.cow: true
+      mobgrab.pickup.dolphin: true
+      mobgrab.pickup.donkey: true
+      mobgrab.pickup.fox: true
+      mobgrab.pickup.frog: true
+      mobgrab.pickup.glow_squid: true
+      mobgrab.pickup.goat: true
+      mobgrab.pickup.horse: true
+      mobgrab.pickup.llama: true
+      mobgrab.pickup.mooshroom: true
+      mobgrab.pickup.mule: true
+      mobgrab.pickup.ocelot: true
+      mobgrab.pickup.panda: true
+      mobgrab.pickup.parrot: true
+      mobgrab.pickup.pig: true
+      mobgrab.pickup.polar_bear: true
+      mobgrab.pickup.pufferfish: true
+      mobgrab.pickup.rabbit: true
+      mobgrab.pickup.salmon: true
+      mobgrab.pickup.sheep: true
+      mobgrab.pickup.skeleton_horse: true
+      mobgrab.pickup.sniffer: true
+      mobgrab.pickup.squid: true
+      mobgrab.pickup.strider: true
+      mobgrab.pickup.tadpole: true
+      mobgrab.pickup.trader_llama: true
+      mobgrab.pickup.tropical_fish: true
+      mobgrab.pickup.turtle: true
+      mobgrab.pickup.wandering_trader: true
+      mobgrab.pickup.wolf: true
+      mobgrab.pickup.zombie_horse: true
+      mobgrab.pickup.happy_ghast: true
+
+  mobgrab.pickup.hostile:
+    description: Pick up hostile mobs (zombies, skeletons, creepers, etc.)
+    default: false
+    children:
+      mobgrab.pickup.blaze: true
+      mobgrab.pickup.bogged: true
+      mobgrab.pickup.breeze: true
+      mobgrab.pickup.cave_spider: true
+      mobgrab.pickup.creeper: true
+      mobgrab.pickup.drowned: true
+      mobgrab.pickup.elder_guardian: true
+      mobgrab.pickup.enderman: true
+      mobgrab.pickup.endermite: true
+      mobgrab.pickup.evoker: true
+      mobgrab.pickup.ghast: true
+      mobgrab.pickup.guardian: true
+      mobgrab.pickup.hoglin: true
+      mobgrab.pickup.husk: true
+      mobgrab.pickup.magma_cube: true
+      mobgrab.pickup.phantom: true
+      mobgrab.pickup.piglin: true
+      mobgrab.pickup.piglin_brute: true
+      mobgrab.pickup.pillager: true
+      mobgrab.pickup.ravager: true
+      mobgrab.pickup.shulker: true
+      mobgrab.pickup.silverfish: true
+      mobgrab.pickup.skeleton: true
+      mobgrab.pickup.slime: true
+      mobgrab.pickup.spider: true
+      mobgrab.pickup.stray: true
+      mobgrab.pickup.vex: true
+      mobgrab.pickup.vindicator: true
+      mobgrab.pickup.witch: true
+      mobgrab.pickup.wither_skeleton: true
+      mobgrab.pickup.zoglin: true
+      mobgrab.pickup.zombie: true
+      mobgrab.pickup.zombified_piglin: true
+      mobgrab.pickup.creaking: true
+
+  # Granting this also grants zombie_villager pickup
+  mobgrab.pickup.villager:
+    description: Pick up villagers and zombie villagers
+    default: false
+    children:
+      mobgrab.pickup.zombie_villager: true
+
+  mobgrab.pickup.utility:
+    description: Pick up utility mobs (iron golems, snow golems, copper golems)
+    default: false
+    children:
+      mobgrab.pickup.iron_golem: true
+      mobgrab.pickup.snow_golem: true
+      mobgrab.pickup.copper_golem: true
+
+  mobgrab.pickup.boss:
+    description: Pick up boss mobs (warden, wither, ender dragon)
+    default: false
+    children:
+      mobgrab.pickup.warden: true
+      mobgrab.pickup.wither: true
+      mobgrab.pickup.ender_dragon: true
+
+  # ════════════════════════════════════════════════════════════════════
+  #  Individual Mob Permissions
+  # ════════════════════════════════════════════════════════════════════
+
+  # ── Passive ────────────────────────────────────────────────────────
+  mobgrab.pickup.allay:
+    description: Pick up allays
+    default: false
+  mobgrab.pickup.armadillo:
+    description: Pick up armadillos
+    default: false
+  mobgrab.pickup.axolotl:
+    description: Pick up axolotls
+    default: false
+  mobgrab.pickup.bat:
+    description: Pick up bats
+    default: false
+  mobgrab.pickup.bee:
+    description: Pick up bees
+    default: false
+  mobgrab.pickup.camel:
+    description: Pick up camels
+    default: false
+  mobgrab.pickup.cat:
+    description: Pick up cats
+    default: false
+  mobgrab.pickup.chicken:
+    description: Pick up chickens
+    default: false
+  mobgrab.pickup.cod:
+    description: Pick up cod
+    default: false
+  mobgrab.pickup.cow:
+    description: Pick up cows
+    default: false
+  mobgrab.pickup.dolphin:
+    description: Pick up dolphins
+    default: false
+  mobgrab.pickup.donkey:
+    description: Pick up donkeys
+    default: false
+  mobgrab.pickup.fox:
+    description: Pick up foxes
+    default: false
+  mobgrab.pickup.frog:
+    description: Pick up frogs
+    default: false
+  mobgrab.pickup.glow_squid:
+    description: Pick up glow squids
+    default: false
+  mobgrab.pickup.goat:
+    description: Pick up goats
+    default: false
+  mobgrab.pickup.horse:
+    description: Pick up horses
+    default: false
+  mobgrab.pickup.llama:
+    description: Pick up llamas
+    default: false
+  mobgrab.pickup.mooshroom:
+    description: Pick up mooshrooms
+    default: false
+  mobgrab.pickup.mule:
+    description: Pick up mules
+    default: false
+  mobgrab.pickup.ocelot:
+    description: Pick up ocelots
+    default: false
+  mobgrab.pickup.panda:
+    description: Pick up pandas
+    default: false
+  mobgrab.pickup.parrot:
+    description: Pick up parrots
+    default: false
+  mobgrab.pickup.pig:
+    description: Pick up pigs
+    default: false
+  mobgrab.pickup.polar_bear:
+    description: Pick up polar bears
+    default: false
+  mobgrab.pickup.pufferfish:
+    description: Pick up pufferfish
+    default: false
+  mobgrab.pickup.rabbit:
+    description: Pick up rabbits
+    default: false
+  mobgrab.pickup.salmon:
+    description: Pick up salmon
+    default: false
+  mobgrab.pickup.sheep:
+    description: Pick up sheep
+    default: false
+  mobgrab.pickup.skeleton_horse:
+    description: Pick up skeleton horses
+    default: false
+  mobgrab.pickup.sniffer:
+    description: Pick up sniffers
+    default: false
+  mobgrab.pickup.squid:
+    description: Pick up squids
+    default: false
+  mobgrab.pickup.strider:
+    description: Pick up striders
+    default: false
+  mobgrab.pickup.tadpole:
+    description: Pick up tadpoles
+    default: false
+  mobgrab.pickup.trader_llama:
+    description: Pick up trader llamas
+    default: false
+  mobgrab.pickup.tropical_fish:
+    description: Pick up tropical fish
+    default: false
+  mobgrab.pickup.turtle:
+    description: Pick up turtles
+    default: false
+  mobgrab.pickup.wandering_trader:
+    description: Pick up wandering traders
+    default: false
+  mobgrab.pickup.wolf:
+    description: Pick up wolves
+    default: false
+  mobgrab.pickup.zombie_horse:
+    description: Pick up zombie horses
+    default: false
+  mobgrab.pickup.happy_ghast:
+    description: Pick up happy ghasts
+    default: false
+
+  # ── Hostile ────────────────────────────────────────────────────────
+  mobgrab.pickup.blaze:
+    description: Pick up blazes
+    default: false
+  mobgrab.pickup.bogged:
+    description: Pick up bogged
+    default: false
+  mobgrab.pickup.breeze:
+    description: Pick up breezes
+    default: false
+  mobgrab.pickup.cave_spider:
+    description: Pick up cave spiders
+    default: false
+  mobgrab.pickup.creeper:
+    description: Pick up creepers
+    default: false
+  mobgrab.pickup.drowned:
+    description: Pick up drowned
+    default: false
+  mobgrab.pickup.elder_guardian:
+    description: Pick up elder guardians
+    default: false
+  mobgrab.pickup.enderman:
+    description: Pick up endermen
+    default: false
+  mobgrab.pickup.endermite:
+    description: Pick up endermites
+    default: false
+  mobgrab.pickup.evoker:
+    description: Pick up evokers
+    default: false
+  mobgrab.pickup.ghast:
+    description: Pick up ghasts
+    default: false
+  mobgrab.pickup.guardian:
+    description: Pick up guardians
+    default: false
+  mobgrab.pickup.hoglin:
+    description: Pick up hoglins
+    default: false
+  mobgrab.pickup.husk:
+    description: Pick up husks
+    default: false
+  mobgrab.pickup.magma_cube:
+    description: Pick up magma cubes
+    default: false
+  mobgrab.pickup.phantom:
+    description: Pick up phantoms
+    default: false
+  mobgrab.pickup.piglin:
+    description: Pick up piglins
+    default: false
+  mobgrab.pickup.piglin_brute:
+    description: Pick up piglin brutes
+    default: false
+  mobgrab.pickup.pillager:
+    description: Pick up pillagers
+    default: false
+  mobgrab.pickup.ravager:
+    description: Pick up ravagers
+    default: false
+  mobgrab.pickup.shulker:
+    description: Pick up shulkers
+    default: false
+  mobgrab.pickup.silverfish:
+    description: Pick up silverfish
+    default: false
+  mobgrab.pickup.skeleton:
+    description: Pick up skeletons
+    default: false
+  mobgrab.pickup.slime:
+    description: Pick up slimes
+    default: false
+  mobgrab.pickup.spider:
+    description: Pick up spiders
+    default: false
+  mobgrab.pickup.stray:
+    description: Pick up strays
+    default: false
+  mobgrab.pickup.vex:
+    description: Pick up vexes
+    default: false
+  mobgrab.pickup.vindicator:
+    description: Pick up vindicators
+    default: false
+  mobgrab.pickup.witch:
+    description: Pick up witches
+    default: false
+  mobgrab.pickup.wither_skeleton:
+    description: Pick up wither skeletons
+    default: false
+  mobgrab.pickup.zoglin:
+    description: Pick up zoglins
+    default: false
+  mobgrab.pickup.zombie:
+    description: Pick up zombies
+    default: false
+  mobgrab.pickup.zombified_piglin:
+    description: Pick up zombified piglins
+    default: false
+  mobgrab.pickup.creaking:
+    description: Pick up creakings
+    default: false
+
+  # ── Villagers ──────────────────────────────────────────────────────
+  mobgrab.pickup.zombie_villager:
+    description: Pick up zombie villagers
+    default: false
+
+  # ── Utility ────────────────────────────────────────────────────────
+  mobgrab.pickup.iron_golem:
+    description: Pick up iron golems
+    default: false
+  mobgrab.pickup.snow_golem:
+    description: Pick up snow golems
+    default: false
+  mobgrab.pickup.copper_golem:
+    description: Pick up copper golems
+    default: false
+
+  # ── Boss ───────────────────────────────────────────────────────────
+  mobgrab.pickup.warden:
+    description: Pick up wardens
+    default: false
+  mobgrab.pickup.wither:
+    description: Pick up withers
+    default: false
+  mobgrab.pickup.ender_dragon:
+    description: Pick up ender dragons
+    default: false
+
+  # ════════════════════════════════════════════════════════════════════
+  #  Core Permissions
+  # ════════════════════════════════════════════════════════════════════
+  mobgrab.place:
+    description: Place mobs back down from items
+    default: false
+  mobgrab.admin:
+    description: Access to /mobgrab GUI and reload commands
+    default: op
+  mobgrab.bypass.protection:
+    description: Bypass WorldGuard/GriefPrevention/PlotSquared region checks
+    default: op
