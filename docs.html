@@ -24,7 +24,7 @@
 <div class="docs-container">
 
     <h1 style="font-size:2rem; color:var(--accent); margin: 1.5rem 0 0.25rem;">Documentation</h1>
-    <p style="color:var(--text-dim); margin-bottom:2rem;">Complete reference for MobGrab v1.3.0</p>
+    <p style="color:var(--text-dim); margin-bottom:2rem;">Complete reference for MobGrab v1.4.0</p>
 
     <nav class="toc">
         <h3>Contents</h3>
@@ -112,6 +112,7 @@
             <tr><th>Command</th><th>Description</th><th>Permission</th></tr>
             <tr><td><code>/mobgrab gui</code></td><td>Opens the mob toggle GUI to enable/disable mobs</td><td><code>mobgrab.admin</code></td></tr>
             <tr><td><code>/mobgrab reload</code></td><td>Reloads the config file</td><td><code>mobgrab.admin</code></td></tr>
+            <tr><td><code>/mobgrab update</code></td><td>Downloads the latest release from GitHub and replaces the plugin jar. Restart to apply.</td><td><code>mobgrab.admin</code></td></tr>
         </table>
     </section>
 
@@ -144,6 +145,7 @@
             <tr><th>Key</th><th>Default</th><th>Description</th></tr>
             <tr><td><code>cooldown-seconds</code></td><td>1</td><td>Cooldown between pickups per player</td></tr>
             <tr><td><code>blacklist-mode</code></td><td>false</td><td>false = whitelist (only listed mobs allowed), true = blacklist (all allowed unless listed as false)</td></tr>
+            <tr><td><code>rosestacker-pickup-whole-stack</code></td><td>false</td><td>false = take one mob from stack, true = pick up entire stack as one item</td></tr>
         </table>
 
         <h3>Mob Toggles</h3>
@@ -216,7 +218,11 @@
         <p>Use <code>mobgrab.bypass.protection</code> to skip these checks.</p>
 
         <h3>RoseStacker</h3>
-        <p>When picking up a mob from a RoseStacker stack, only one mob is removed from the stack instead of the whole group.</p>
+        <p>When picking up a mob from a RoseStacker stack, the behavior depends on the <code>rosestacker-pickup-whole-stack</code> config setting:</p>
+        <ul>
+            <li><strong>false</strong> (default) &mdash; Takes one mob from the stack. The stack decrements by 1.</li>
+            <li><strong>true</strong> &mdash; Picks up the entire stack as a single item. The item name shows the count (e.g. <em>5&times; Cow</em>) and placing it recreates the full RoseStacker stack.</li>
+        </ul>
 
         <h3>Floodgate / Geyser</h3>
         <p>Bedrock players automatically get a form-based GUI for <code>/mobgrab gui</code> instead of the chest inventory.</p>
