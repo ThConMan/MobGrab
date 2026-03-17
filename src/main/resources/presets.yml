@@ -1,0 +1,261 @@
+# ═══════════════════════════════════════════════════════════
+# MobGrab 2.0 — Mob Presets
+#
+# Create custom mob items:  /mobgrab give <player> <preset>
+# Save existing mobs:       /mobgrab save <name>
+# List all presets:          /mobgrab list
+# Delete a preset:           /mobgrab delete <name>
+#
+# Item format:  MATERIAL:AMOUNT  (e.g. EMERALD:10)
+# Enchantment keys: minecraft names (mending, unbreaking, etc.)
+# ═══════════════════════════════════════════════════════════
+
+# ── Librarians ────────────────────────────────────────────
+
+mending_librarian:
+  type: VILLAGER
+  name: "&6Mending Master"
+  profession: LIBRARIAN
+  level: 5
+  trades:
+    - ingredient1: "EMERALD:5"
+      ingredient2: "BOOK:1"
+      result: "ENCHANTED_BOOK:1"
+      enchantments:
+        mending: 1
+      max-uses: 9999
+    - ingredient1: "EMERALD:8"
+      ingredient2: "BOOK:1"
+      result: "ENCHANTED_BOOK:1"
+      enchantments:
+        unbreaking: 3
+      max-uses: 9999
+
+silk_touch_librarian:
+  type: VILLAGER
+  name: "&bSilk Touch Scholar"
+  profession: LIBRARIAN
+  level: 5
+  trades:
+    - ingredient1: "EMERALD:8"
+      ingredient2: "BOOK:1"
+      result: "ENCHANTED_BOOK:1"
+      enchantments:
+        silk_touch: 1
+      max-uses: 9999
+    - ingredient1: "EMERALD:12"
+      ingredient2: "BOOK:1"
+      result: "ENCHANTED_BOOK:1"
+      enchantments:
+        fortune: 3
+      max-uses: 9999
+
+protection_librarian:
+  type: VILLAGER
+  name: "&9Guardian Scholar"
+  profession: LIBRARIAN
+  level: 5
+  trades:
+    - ingredient1: "EMERALD:6"
+      ingredient2: "BOOK:1"
+      result: "ENCHANTED_BOOK:1"
+      enchantments:
+        protection: 4
+      max-uses: 9999
+    - ingredient1: "EMERALD:10"
+      ingredient2: "BOOK:1"
+      result: "ENCHANTED_BOOK:1"
+      enchantments:
+        feather_falling: 4
+      max-uses: 9999
+
+sharpness_librarian:
+  type: VILLAGER
+  name: "&cBlade Scholar"
+  profession: LIBRARIAN
+  level: 5
+  trades:
+    - ingredient1: "EMERALD:8"
+      ingredient2: "BOOK:1"
+      result: "ENCHANTED_BOOK:1"
+      enchantments:
+        sharpness: 5
+      max-uses: 9999
+    - ingredient1: "EMERALD:6"
+      ingredient2: "BOOK:1"
+      result: "ENCHANTED_BOOK:1"
+      enchantments:
+        looting: 3
+      max-uses: 9999
+
+efficiency_librarian:
+  type: VILLAGER
+  name: "&aSwift Scholar"
+  profession: LIBRARIAN
+  level: 5
+  trades:
+    - ingredient1: "EMERALD:6"
+      ingredient2: "BOOK:1"
+      result: "ENCHANTED_BOOK:1"
+      enchantments:
+        efficiency: 5
+      max-uses: 9999
+    - ingredient1: "EMERALD:8"
+      ingredient2: "BOOK:1"
+      result: "ENCHANTED_BOOK:1"
+      enchantments:
+        unbreaking: 3
+      max-uses: 9999
+
+# ── Smiths ────────────────────────────────────────────────
+
+master_armorer:
+  type: VILLAGER
+  name: "&9Master Armorer"
+  profession: ARMORER
+  level: 5
+  trades:
+    - ingredient1: "EMERALD:15"
+      result: "DIAMOND_CHESTPLATE:1"
+      enchantments:
+        protection: 4
+        unbreaking: 3
+      max-uses: 9999
+    - ingredient1: "EMERALD:12"
+      result: "DIAMOND_HELMET:1"
+      enchantments:
+        protection: 4
+        unbreaking: 3
+      max-uses: 9999
+    - ingredient1: "EMERALD:10"
+      result: "DIAMOND_BOOTS:1"
+      enchantments:
+        protection: 4
+        feather_falling: 4
+      max-uses: 9999
+    - ingredient1: "EMERALD:11"
+      result: "DIAMOND_LEGGINGS:1"
+      enchantments:
+        protection: 4
+        unbreaking: 3
+      max-uses: 9999
+
+master_weaponsmith:
+  type: VILLAGER
+  name: "&cMaster Weaponsmith"
+  profession: WEAPONSMITH
+  level: 5
+  trades:
+    - ingredient1: "EMERALD:15"
+      result: "DIAMOND_SWORD:1"
+      enchantments:
+        sharpness: 5
+        unbreaking: 3
+        fire_aspect: 2
+      max-uses: 9999
+    - ingredient1: "EMERALD:12"
+      result: "DIAMOND_AXE:1"
+      enchantments:
+        sharpness: 5
+        unbreaking: 3
+      max-uses: 9999
+
+master_toolsmith:
+  type: VILLAGER
+  name: "&aMaster Toolsmith"
+  profession: TOOLSMITH
+  level: 5
+  trades:
+    - ingredient1: "EMERALD:12"
+      result: "DIAMOND_PICKAXE:1"
+      enchantments:
+        efficiency: 5
+        unbreaking: 3
+        fortune: 3
+      max-uses: 9999
+    - ingredient1: "EMERALD:12"
+      result: "DIAMOND_PICKAXE:1"
+      enchantments:
+        efficiency: 5
+        unbreaking: 3
+        silk_touch: 1
+      max-uses: 9999
+    - ingredient1: "EMERALD:10"
+      result: "DIAMOND_SHOVEL:1"
+      enchantments:
+        efficiency: 5
+        unbreaking: 3
+      max-uses: 9999
+
+# ── Specialty Villagers ───────────────────────────────────
+
+golden_farmer:
+  type: VILLAGER
+  name: "&eGolden Farmer"
+  profession: FARMER
+  level: 5
+  trades:
+    - ingredient1: "EMERALD:3"
+      result: "GOLDEN_CARROT:16"
+      max-uses: 9999
+    - ingredient1: "EMERALD:5"
+      result: "GOLDEN_APPLE:4"
+      max-uses: 9999
+    - ingredient1: "WHEAT:20"
+      result: "EMERALD:1"
+      max-uses: 9999
+
+potion_cleric:
+  type: VILLAGER
+  name: "&5Potion Master"
+  profession: CLERIC
+  level: 5
+  trades:
+    - ingredient1: "EMERALD:3"
+      result: "EXPERIENCE_BOTTLE:4"
+      max-uses: 9999
+    - ingredient1: "EMERALD:5"
+      result: "ENDER_PEARL:4"
+      max-uses: 9999
+    - ingredient1: "EMERALD:12"
+      result: "TOTEM_OF_UNDYING:1"
+      max-uses: 9999
+
+fletching_master:
+  type: VILLAGER
+  name: "&7Fletching Master"
+  profession: FLETCHER
+  level: 5
+  trades:
+    - ingredient1: "EMERALD:2"
+      result: "ARROW:32"
+      max-uses: 9999
+    - ingredient1: "EMERALD:8"
+      result: "BOW:1"
+      enchantments:
+        power: 5
+        infinity: 1
+        unbreaking: 3
+      max-uses: 9999
+    - ingredient1: "EMERALD:10"
+      result: "CROSSBOW:1"
+      enchantments:
+        quick_charge: 3
+        multishot: 1
+        unbreaking: 3
+      max-uses: 9999
+
+map_cartographer:
+  type: VILLAGER
+  name: "&3Explorer's Guide"
+  profession: CARTOGRAPHER
+  level: 5
+  trades:
+    - ingredient1: "EMERALD:5"
+      result: "COMPASS:1"
+      enchantments:
+        vanishing_curse: 1
+      max-uses: 9999
+    - ingredient1: "EMERALD:3"
+      result: "MAP:4"
+      max-uses: 9999

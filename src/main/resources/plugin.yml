@@ -1,8 +1,8 @@
 name: MobGrab
-version: '1.4.0'
+version: '2.0.0'
 main: com.mobgrab.MobGrab
 api-version: '1.21'
-description: Pick up mobs as items and place them back down
+description: Pick up mobs as items, place them back down, and create custom mob presets
 author: Con
 website: https://nomonom.net
 softdepend:
@@ -14,7 +14,7 @@ softdepend:
 commands:
   mobgrab:
     description: MobGrab admin commands
-    usage: /mobgrab <gui|reload|update>
+    usage: /mobgrab <gui|reload|update|give|list|save|delete>
 
 permissions:
   # ════════════════════════════════════════════════════════════════════

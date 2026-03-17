@@ -7,6 +7,7 @@ import com.mobgrab.config.ConfigManager;
 import com.mobgrab.gui.MobToggleGUI;
 import com.mobgrab.listener.PickupListener;
 import com.mobgrab.listener.PlaceListener;
+import com.mobgrab.preset.PresetManager;
 import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -26,6 +27,7 @@ public final class MobGrab extends JavaPlugin {
     private MobToggleGUI mobToggleGUI;
     private GeyserSupport geyserSupport;
     private ProtectionManager protectionManager;
+    private PresetManager presetManager;
 
     @Override
     public void onEnable() {
@@ -36,6 +38,7 @@ public final class MobGrab extends JavaPlugin {
         mobToggleGUI = new MobToggleGUI(this);
         geyserSupport = new GeyserSupport(this);
         protectionManager = new ProtectionManager(this);
+        presetManager = new PresetManager(this);
 
         getServer().getPluginManager().registerEvents(new PickupListener(this), this);
         getServer().getPluginManager().registerEvents(new PlaceListener(this), this);
@@ -75,5 +78,9 @@ public final class MobGrab extends JavaPlugin {
 
     public ProtectionManager getProtectionManager() {
         return protectionManager;
+    }
+
+    public PresetManager getPresetManager() {
+        return presetManager;
     }
 }
