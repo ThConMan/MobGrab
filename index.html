@@ -3,172 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MobGrab - Pick Up Any Mob</title>
+    <title>MobGrab — Pick Up Any Mob | Nomonom</title>
     <meta name="description" content="MobGrab is a Paper plugin that lets players pick up any mob as an item and place them back down with all data preserved.">
-    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/mobgrab.css">
 </head>
 <body>
 
-<nav class="navbar">
-    <div class="navbar-inner">
-        <a href="index.html" class="navbar-brand"><img src="logo.png" alt="MobGrab" class="navbar-logo">MobGrab</a>
-        <button class="menu-toggle" onclick="document.querySelector('.navbar-links').classList.toggle('open')">&#9776;</button>
-        <ul class="navbar-links">
-            <li><a href="index.html" class="active">Home</a></li>
-            <li><a href="docs.html">Documentation</a></li>
-            <li><a href="https://github.com/ThConMan/MobGrab">GitHub</a></li>
+<nav class="nav">
+    <div class="nav-inner">
+        <div class="nav-logo"><a href="/" style="color:inherit;">NOMO<span>NOM</span></a></div>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/store">Store</a></li>
+            <li><a href="/plugins" class="active">Plugins</a></li>
         </ul>
+        <button class="nav-burger" onclick="toggleMenu()" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
     </div>
 </nav>
 
-<section class="hero">
-    <img src="logo.png" alt="MobGrab" class="hero-logo">
+<div style="height: 4rem;"></div>
+
+<!-- Hero -->
+<section class="plugin-hero">
+    <img src="/img/mobgrab-logo.png" alt="MobGrab" class="plugin-hero-logo">
+    <h1>MobGrab</h1>
     <p class="tagline">Pick up any mob as an item. Place them back down. All data preserved.</p>
-    <div class="version-badge" id="version-badge">Paper 1.21.11+</div>
+    <div class="plugin-hero-meta">
+        <span class="hero-badge" id="version-badge">Paper 1.21+</span>
+        <span class="hero-badge">Java 21</span>
+    </div>
     <div class="hero-buttons">
-        <a href="https://github.com/ThConMan/MobGrab/releases/latest" class="btn btn-primary" id="download-btn">Download</a>
-        <a href="docs.html" class="btn btn-secondary">Read the Docs</a>
-        <a href="https://github.com/ThConMan/MobGrab" class="btn btn-secondary">View on GitHub</a>
+        <a href="https://github.com/ThConMan/MobGrab/releases/latest" class="btn btn-primary" id="download-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download
+        </a>
+        <a href="/plugins/mobgrab-docs" class="btn btn-outline">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            Documentation
+        </a>
+        <a href="https://github.com/ThConMan/MobGrab" class="btn btn-outline">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            GitHub
+        </a>
     </div>
 </section>
 
-<section class="features">
-    <h2>Features</h2>
-    <p class="subtitle">Everything you need for mob management.</p>
-    <div class="feature-grid">
+<!-- Features -->
+<section class="section">
+    <h2 class="section-title">Features</h2>
+    <p class="section-subtitle">Everything you need for mob management.</p>
+    <div class="features-grid">
         <div class="feature-card">
-            <span class="icon">&#x1F43E;</span>
+            <div class="feature-icon-wrap">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent-light)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+            </div>
             <h3>85+ Mobs Supported</h3>
-            <p>Every mob in 1.21.11 can be picked up, each with a custom head texture.</p>
+            <p>Every mob in 1.21 can be picked up, each with a custom head texture.</p>
         </div>
         <div class="feature-card">
-            <span class="icon">&#x1F4BE;</span>
+            <div class="feature-icon-wrap">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent-light)" stroke-width="1.5"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            </div>
             <h3>Full Data Preservation</h3>
-            <p>Health, trades, profession, equipment, enchants, name tags, variants &mdash; nothing is lost.</p>
+            <p>Health, trades, profession, equipment, enchants, name tags, variants — nothing is lost.</p>
         </div>
         <div class="feature-card">
-            <span class="icon">&#x1F6E1;&#xFE0F;</span>
+            <div class="feature-icon-wrap">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent-light)" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
             <h3>Region Protection</h3>
             <p>Respects WorldGuard, PlotSquared, and GriefPrevention build permissions.</p>
         </div>
         <div class="feature-card">
-            <span class="icon">&#x1F3AE;</span>
+            <div class="feature-icon-wrap">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent-light)" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </div>
             <h3>Bedrock Support</h3>
             <p>Form-based GUI for Bedrock players via Floodgate integration.</p>
         </div>
         <div class="feature-card">
-            <span class="icon">&#x2699;&#xFE0F;</span>
+            <div class="feature-icon-wrap">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent-light)" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+            </div>
             <h3>Fully Configurable</h3>
             <p>Toggle individual mobs, customize sounds and particles, set cooldowns, whitelist or blacklist mode.</p>
         </div>
         <div class="feature-card">
-            <span class="icon">&#x1F512;</span>
+            <div class="feature-icon-wrap">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent-light)" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+            </div>
             <h3>Granular Permissions</h3>
             <p>Per-mob permissions, category bundles, and admin controls. Works great with LuckPerms.</p>
         </div>
     </div>
 </section>
 
-<section class="quickstart">
-    <div class="quickstart-inner">
-        <h2>Quick Start</h2>
-        <div class="step">
-            <div class="step-num">1</div>
-            <div class="step-content">
-                <h3>Install</h3>
-                <p>Drop <code>MobGrab.jar</code> into your server's <code>plugins/</code> folder and restart.</p>
-            </div>
+<!-- Quick Start -->
+<section class="section" style="padding-top: 0;">
+    <h2 class="section-title">Quick Start</h2>
+    <p class="section-subtitle">Up and running in under a minute.</p>
+    <div class="steps-grid">
+        <div class="step-card">
+            <div class="step-number">1</div>
+            <h3>Install</h3>
+            <p>Drop <span class="mono">MobGrab.jar</span> into your server's <span class="mono">plugins/</span> folder and restart.</p>
         </div>
-        <div class="step">
-            <div class="step-num">2</div>
-            <div class="step-content">
-                <h3>Set Permissions</h3>
-                <p>Grant <code>mobgrab.pickup.passive</code> for farm animals, <code>mobgrab.pickup.*</code> for everything, or individual permissions like <code>mobgrab.pickup.cow</code>. Don't forget <code>mobgrab.place</code>.</p>
-            </div>
+        <div class="step-card">
+            <div class="step-number">2</div>
+            <h3>Set Permissions</h3>
+            <p>Grant <span class="mono">mobgrab.pickup.passive</span> for farm animals, <span class="mono">mobgrab.pickup.*</span> for everything, or individual perms like <span class="mono">mobgrab.pickup.cow</span>. Don't forget <span class="mono">mobgrab.place</span>.</p>
         </div>
-        <div class="step">
-            <div class="step-num">3</div>
-            <div class="step-content">
-                <h3>Enable Mobs</h3>
-                <p>Use <code>/mobgrab gui</code> to toggle which mobs can be picked up, or edit <code>config.yml</code> directly.</p>
-            </div>
+        <div class="step-card">
+            <div class="step-number">3</div>
+            <h3>Enable Mobs</h3>
+            <p>Use <span class="mono">/mobgrab gui</span> to toggle which mobs can be picked up, or edit <span class="mono">config.yml</span> directly.</p>
         </div>
-        <div class="step">
-            <div class="step-num">4</div>
-            <div class="step-content">
-                <h3>Grab</h3>
-                <p>Sneak + right-click any enabled mob to pick it up. Right-click a block to place it back down.</p>
-            </div>
+        <div class="step-card">
+            <div class="step-number">4</div>
+            <h3>Grab</h3>
+            <p>Sneak + right-click any enabled mob to pick it up. Right-click a block to place it back down.</p>
         </div>
     </div>
 </section>
 
-<section class="compat">
-    <h2>Compatibility</h2>
+<!-- Compatibility -->
+<section class="section" style="padding-top: 0;">
+    <h2 class="section-title">Compatibility</h2>
+    <p class="section-subtitle">Plays nice with the plugins you already use.</p>
     <div class="compat-grid">
         <div class="compat-item">
-            <span class="compat-icon">&#x1F6E1;&#xFE0F;</span>
-            <h4>WorldGuard</h4>
-            <p>BUILD flag checks</p>
+            <div class="compat-name">WorldGuard</div>
+            <div class="compat-desc">BUILD flag checks</div>
         </div>
         <div class="compat-item">
-            <span class="compat-icon">&#x1F3D7;&#xFE0F;</span>
-            <h4>PlotSquared</h4>
-            <p>Plot ownership checks</p>
+            <div class="compat-name">PlotSquared</div>
+            <div class="compat-desc">Plot ownership checks</div>
         </div>
         <div class="compat-item">
-            <span class="compat-icon">&#x26CF;&#xFE0F;</span>
-            <h4>GriefPrevention</h4>
-            <p>Claim build access</p>
+            <div class="compat-name">GriefPrevention</div>
+            <div class="compat-desc">Claim build access</div>
         </div>
         <div class="compat-item">
-            <span class="compat-icon">&#x1F4DA;</span>
-            <h4>RoseStacker</h4>
-            <p>Single mob from stack</p>
+            <div class="compat-name">RoseStacker</div>
+            <div class="compat-desc">Single mob from stack</div>
         </div>
         <div class="compat-item">
-            <span class="compat-icon">&#x1F3AE;</span>
-            <h4>Floodgate</h4>
-            <p>Bedrock form GUI</p>
+            <div class="compat-name">Floodgate</div>
+            <div class="compat-desc">Bedrock form GUI</div>
         </div>
         <div class="compat-item">
-            <span class="compat-icon">&#x1F310;</span>
-            <h4>Geyser</h4>
-            <p>Cross-platform play</p>
+            <div class="compat-name">Geyser</div>
+            <div class="compat-desc">Cross-platform play</div>
         </div>
         <div class="compat-item">
-            <span class="compat-icon">&#x1F504;</span>
-            <h4>ClickVillagers</h4>
-            <p>Auto-migration</p>
+            <div class="compat-name">ClickVillagers</div>
+            <div class="compat-desc">Auto-migration</div>
         </div>
         <div class="compat-item">
-            <span class="compat-icon">&#x1F511;</span>
-            <h4>LuckPerms</h4>
-            <p>Full permission support</p>
+            <div class="compat-name">LuckPerms</div>
+            <div class="compat-desc">Full permission support</div>
         </div>
     </div>
 </section>
 
-<footer>
-    <p>MobGrab &mdash; made by <a href="https://nomonom.net">Con</a></p>
+<!-- CTA -->
+<section class="section" style="padding-top: 0;">
+    <div class="cta-card">
+        <h2>Ready to use MobGrab?</h2>
+        <p>Download the latest release or read the full documentation.</p>
+        <div class="hero-buttons">
+            <a href="https://github.com/ThConMan/MobGrab/releases/latest" class="btn btn-primary" id="download-btn-2">Download</a>
+            <a href="/plugins/mobgrab-docs" class="btn btn-outline">Full Docs</a>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="nav-logo"><a href="/" style="color:inherit;">NOMO<span>NOM</span></a></div>
+        <p>&copy; 2026 Nomonom. Made by <a href="/">Con</a>.</p>
+    </div>
 </footer>
 
 <script>
+function toggleMenu() {
+    document.getElementById('nav-links').classList.toggle('open');
+    document.querySelector('.nav-burger').classList.toggle('active');
+}
+
+// Fetch latest version from GitHub
 fetch('https://api.github.com/repos/ThConMan/MobGrab/releases/latest')
     .then(r => r.json())
     .then(data => {
-        const badge = document.getElementById('version-badge');
-        const btn = document.getElementById('download-btn');
         if (data.tag_name) {
-            badge.textContent = 'Paper 1.21.11+ \u2022 ' + data.tag_name;
+            document.getElementById('version-badge').textContent = 'Paper 1.21+ \u2022 ' + data.tag_name;
         }
         const jar = data.assets && data.assets.find(a => a.name.endsWith('.jar'));
         if (jar) {
-            btn.href = jar.browser_download_url;
-            btn.textContent = 'Download ' + data.tag_name;
+            document.getElementById('download-btn').href = jar.browser_download_url;
+            document.getElementById('download-btn-2').href = jar.browser_download_url;
         }
     })
     .catch(() => {});
 </script>
+
 </body>
 </html>
