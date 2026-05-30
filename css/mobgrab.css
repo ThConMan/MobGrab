@@ -141,8 +141,14 @@
     background: rgba(63, 185, 80, 0.1);
 }
 
-/* Remove heavy text shadows on section headings */
-.section-title { filter: none; }
+/* Section headings in green */
+.section-title {
+    filter: none;
+    background: linear-gradient(135deg, #f0f0f8 0%, var(--accent-light) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
 .section-subtitle { text-shadow: none; }
 
 /* Footer link */
