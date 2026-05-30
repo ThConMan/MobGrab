@@ -141,5 +141,9 @@
     background: rgba(63, 185, 80, 0.1);
 }
 
+/* Remove heavy text shadows on section headings */
+.section-title { filter: none; }
+.section-subtitle { text-shadow: none; }
+
 /* Footer link */
 .footer a { color: var(--accent); }
