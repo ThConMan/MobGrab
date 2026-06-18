@@ -14,7 +14,7 @@ softdepend:
 commands:
   mobgrab:
     description: MobGrab admin commands
-    usage: /mobgrab <gui|reload|update|give|list|save|delete>
+    usage: /mobgrab <gui|reload|enable|disable|status|update|give|list|save|delete>
 
 permissions:
   # ════════════════════════════════════════════════════════════════════
