@@ -5,13 +5,13 @@ entity state preserved (health, equipment, trades, name, variant, age, …). Inc
 villager/mob preset engine.
 
 - **Website:** https://nomonom.net
-- **Requires:** Paper **26.2** ("Chaos Cubed") · **Java 25**
+- **Requires:** Paper **26.1.2** · **Java 25** _(a Paper 26.2 build with the sulfur cube lives on the `feat/mc-26.2-all-mobs` branch)_
 
 ## Features
 
 - **Sneak + right-click** a mob → it becomes a head item; **right-click a block** to place it back.
-- **All 90+ living mobs** supported, each with a custom head texture (incl. the new
-  26.x mobs: sulfur cube, camel husk, parched, mannequin, nautilus).
+- **All living mobs** supported, each with a custom head texture (incl. the recent
+  mobs: camel husk, parched, mannequin, nautilus).
 - **Fireproof mob items** (optional) so a pocketed mob survives fire/lava like netherite —
   toggle live from the admin GUI.
 - **Admin GUI** (`/mobgrab gui`) with category filters, search-by-page, and bulk enable/disable.

@@ -79,7 +79,6 @@ permissions:
       mobgrab.pickup.camel_husk: true
       mobgrab.pickup.nautilus: true
       mobgrab.pickup.zombie_nautilus: true
-      mobgrab.pickup.sulfur_cube: true
 
   mobgrab.pickup.hostile:
     description: Pick up hostile mobs (zombies, skeletons, creepers, etc.)
@@ -283,9 +282,6 @@ permissions:
     default: false
   mobgrab.pickup.zombie_nautilus:
     description: Pick up zombie nautiluses
-    default: false
-  mobgrab.pickup.sulfur_cube:
-    description: Pick up sulfur cubes
     default: false
 
   # ── Hostile ────────────────────────────────────────────────────────

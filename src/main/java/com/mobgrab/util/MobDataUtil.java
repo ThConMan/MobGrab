@@ -224,14 +224,6 @@ public final class MobDataUtil {
             lore.add(label("Size", sizeName, NamedTextColor.WHITE));
         }
 
-        // Sulfur Cube (Chaos Cubed) — splits like a slime and can be ignited to explode
-        if (entity instanceof SulfurCube cube) {
-            lore.add(label("Size", "Size " + cube.getSize(), NamedTextColor.WHITE));
-            if (cube.canExplode()) {
-                lore.add(tag("Explosive", NamedTextColor.GOLD));
-            }
-        }
-
         // Tropical Fish
         if (entity instanceof TropicalFish fish) {
             lore.add(label("Pattern", formatEnum(fish.getPattern().name()), NamedTextColor.WHITE));
