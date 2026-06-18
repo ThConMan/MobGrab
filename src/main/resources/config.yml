@@ -126,9 +126,10 @@ enabled-mobs:
 
   HAPPY_GHAST: true
 
-  # New passive (Mounts of Mayhem)
+  # New passive (Mounts of Mayhem / Chaos Cubed)
   NAUTILUS: true
   ZOMBIE_NAUTILUS: true
+  SULFUR_CUBE: true   # 26.2 only — harmlessly ignored on 26.1.x
 
   # Utility
   IRON_GOLEM: true

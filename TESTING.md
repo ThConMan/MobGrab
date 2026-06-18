@@ -1,9 +1,9 @@
-# MobGrab 2.1.0 — Human Testing Checklist (Paper 26.1.2 build)
+# MobGrab 2.1.0 — Human Testing Checklist (universal jar)
 
-This is the **26.1.2** build (`feat/mc-26.1`) — the one that runs on your SMP. Auto-validated
-on a headless Paper 26.1.2 server (loads, reloads, summons the new mobs, zero plugin errors).
-The items below need a real 26.1.2 client and a human. (The sulfur cube is 26.2-only and lives
-on the separate `feat/mc-26.2-all-mobs` build.)
+**One jar runs on both Paper 26.1.2 and 26.2.** Auto-validated on headless 26.1.2 and 26.2
+servers (loads, reloads, summons the new mobs, zero plugin errors). The items below need a
+real client and a human. The **sulfur cube** only exists on 26.2 — on your 26.1.2 server it
+simply won't appear (everything else is identical).
 
 ## Build / deploy
 ```bash
