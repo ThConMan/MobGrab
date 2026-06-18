@@ -43,6 +43,12 @@ public class PresetManager {
 
     public void save() {
         try {
+            // Keep a one-deep backup so a bad save/edit can't silently destroy presets.
+            if (presetsFile.exists()) {
+                java.nio.file.Files.copy(presetsFile.toPath(),
+                        new File(presetsFile.getParentFile(), "presets.yml.bak").toPath(),
+                        java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+            }
             presetsConfig.save(presetsFile);
         } catch (IOException e) {
             plugin.getLogger().warning("Failed to save presets: " + e.getMessage());
