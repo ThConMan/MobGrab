@@ -142,7 +142,10 @@ public class PresetManager {
                 // Health
                 if (section.contains("health") && e instanceof LivingEntity living) {
                     double health = section.getDouble("health");
-                    living.setMaxHealth(health);
+                    var maxAttr = living.getAttribute(org.bukkit.attribute.Attribute.MAX_HEALTH);
+                    if (maxAttr != null) {
+                        maxAttr.setBaseValue(health);
+                    }
                     living.setHealth(health);
                 }
 
@@ -179,7 +182,9 @@ public class PresetManager {
                     String catType = section.getString("cat-type");
                     if (catType != null) {
                         try {
-                            var regCat = Registry.CAT_VARIANT.get(NamespacedKey.minecraft(catType.toLowerCase()));
+                            var regCat = io.papermc.paper.registry.RegistryAccess.registryAccess()
+                                    .getRegistry(io.papermc.paper.registry.RegistryKey.CAT_VARIANT)
+                                    .get(NamespacedKey.minecraft(catType.toLowerCase()));
                             if (regCat != null) cat.setCatType(regCat);
                         } catch (Exception ignored) {}
                     }
