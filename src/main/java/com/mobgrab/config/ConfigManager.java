@@ -1,7 +1,9 @@
 package com.mobgrab.config;
 
 import com.mobgrab.MobGrab;
+import org.bukkit.NamespacedKey;
 import org.bukkit.Particle;
+import org.bukkit.Registry;
 import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.EntityType;
@@ -102,14 +104,19 @@ public final class ConfigManager {
     public int getGeyserMobsPerPage()      { return geyserMobsPerPage; }
     public boolean isRoseStackerPickupWholeStack() { return roseStackerPickupWholeStack; }
 
-    @SuppressWarnings("deprecation")
     private static Sound parseSound(String value, Sound fallback) {
-        if (value == null) return fallback;
-        try {
-            return Sound.valueOf(value.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            return fallback;
-        }
+        if (value == null || value.isBlank()) return fallback;
+        // Sound#valueOf was removed/marked-for-removal once sounds became registry-backed.
+        // Look up via Registry.SOUNDS. Accept legacy enum-style names (ENTITY_CHICKEN_EGG),
+        // dotted keys (entity.chicken.egg) and namespaced keys (minecraft:entity.chicken.egg).
+        String v = value.toLowerCase();
+        String path = v.contains(":") ? v.substring(v.indexOf(':') + 1) : v;
+        if (!path.contains(".")) path = path.replace('_', '.');
+        String namespace = v.contains(":") ? v.substring(0, v.indexOf(':')) : "minecraft";
+        NamespacedKey key = NamespacedKey.fromString(namespace + ":" + path);
+        if (key == null) return fallback;
+        Sound sound = Registry.SOUNDS.get(key);
+        return sound != null ? sound : fallback;
     }
 
     private static Particle parseParticle(String value, Particle fallback) {

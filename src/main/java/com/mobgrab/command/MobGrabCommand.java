@@ -302,7 +302,7 @@ public final class MobGrabCommand implements CommandExecutor, TabCompleter {
                 JsonObject release = JsonParser.parseReader(new InputStreamReader(apiResponse.body())).getAsJsonObject();
                 String latestTag = release.get("tag_name").getAsString();
                 String latestVersion = latestTag.startsWith("v") ? latestTag.substring(1) : latestTag;
-                String currentVersion = plugin.getDescription().getVersion();
+                String currentVersion = plugin.getPluginMeta().getVersion();
 
                 if (currentVersion.equals(latestVersion)) {
                     sendSync(sender, Component.text("Already up to date! ", NamedTextColor.GREEN)

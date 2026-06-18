@@ -215,9 +215,10 @@ public class PresetManager {
         // Profession
         String prof = section.getString("profession");
         if (prof != null) {
-            try {
-                villager.setProfession(Villager.Profession.valueOf(prof.toUpperCase()));
-            } catch (IllegalArgumentException e) {
+            var profession = Registry.VILLAGER_PROFESSION.get(NamespacedKey.minecraft(prof.toLowerCase()));
+            if (profession != null) {
+                villager.setProfession(profession);
+            } else {
                 plugin.getLogger().warning("Unknown villager profession: " + prof);
             }
         }
@@ -228,9 +229,12 @@ public class PresetManager {
         // Villager type (biome variant)
         String villagerType = section.getString("villager-type");
         if (villagerType != null) {
-            try {
-                villager.setVillagerType(Villager.Type.valueOf(villagerType.toUpperCase()));
-            } catch (IllegalArgumentException ignored) {}
+            var type = Registry.VILLAGER_TYPE.get(NamespacedKey.minecraft(villagerType.toLowerCase()));
+            if (type != null) {
+                villager.setVillagerType(type);
+            } else {
+                plugin.getLogger().warning("Unknown villager type: " + villagerType);
+            }
         }
 
         // Trades
