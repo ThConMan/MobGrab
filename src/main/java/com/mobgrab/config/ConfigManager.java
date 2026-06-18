@@ -85,6 +85,12 @@ public final class ConfigManager {
         return enabled != null ? enabled : blacklistMode;
     }
 
+    public void setMobEnabled(EntityType type, boolean enabled) {
+        enabledMobs.put(type, enabled);
+        plugin.getConfig().set("enabled-mobs." + type.name(), enabled);
+        plugin.saveConfig();
+    }
+
     public void toggleMob(EntityType type) {
         boolean newState = !isMobEnabled(type);
         enabledMobs.put(type, newState);
