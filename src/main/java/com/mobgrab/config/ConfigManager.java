@@ -71,7 +71,8 @@ public final class ConfigManager {
                 try {
                     enabledMobs.put(EntityType.valueOf(key.toUpperCase()), section.getBoolean(key));
                 } catch (IllegalArgumentException ignored) {
-                    plugin.getLogger().warning("Unknown entity type in config: " + key);
+                    // e.g. SULFUR_CUBE on a 26.1.x server — simply not in this MC version.
+                    plugin.getLogger().info("Skipping config mob '" + key + "' — not present in this Minecraft version.");
                 }
             }
             plugin.getLogger().info("Loaded " + enabledMobs.size() + " mob toggles.");
