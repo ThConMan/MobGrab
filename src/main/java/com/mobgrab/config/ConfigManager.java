@@ -31,6 +31,8 @@ public final class ConfigManager {
     private boolean geyserEnabled;
     private int geyserMobsPerPage;
     private boolean roseStackerPickupWholeStack;
+    private boolean fireproofItems;
+    private final java.util.Set<String> disabledWorlds = new java.util.HashSet<>();
 
     public ConfigManager(MobGrab plugin) {
         this.plugin = plugin;
@@ -56,6 +58,11 @@ public final class ConfigManager {
         geyserEnabled = config.getBoolean("geyser.enabled", true);
         geyserMobsPerPage = config.getInt("geyser.mobs-per-page", 20);
         roseStackerPickupWholeStack = config.getBoolean("rosestacker-pickup-whole-stack", false);
+        fireproofItems = config.getBoolean("fireproof-items", true);
+        disabledWorlds.clear();
+        for (String w : config.getStringList("disabled-worlds")) {
+            disabledWorlds.add(w.toLowerCase());
+        }
 
         enabledMobs.clear();
         var section = config.getConfigurationSection("enabled-mobs");
@@ -103,6 +110,18 @@ public final class ConfigManager {
     public boolean isGeyserEnabled()       { return geyserEnabled; }
     public int getGeyserMobsPerPage()      { return geyserMobsPerPage; }
     public boolean isRoseStackerPickupWholeStack() { return roseStackerPickupWholeStack; }
+    public boolean isFireproofItems()      { return fireproofItems; }
+
+    public boolean isWorldDisabled(org.bukkit.World world) {
+        return world != null && disabledWorlds.contains(world.getName().toLowerCase());
+    }
+
+    /** Toggle fireproof mob items at runtime (e.g. from the admin GUI) and persist it. */
+    public void setFireproofItems(boolean value) {
+        this.fireproofItems = value;
+        plugin.getConfig().set("fireproof-items", value);
+        plugin.saveConfig();
+    }
 
     private static Sound parseSound(String value, Sound fallback) {
         if (value == null || value.isBlank()) return fallback;

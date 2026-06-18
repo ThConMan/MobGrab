@@ -54,4 +54,14 @@ public final class ProtectionManager {
         }
         return true;
     }
+
+    /** Whether the player may grab a mob here (build rights + WorldGuard's mob-grab flag). */
+    public boolean canGrab(Player player, Location location) {
+        for (ProtectionHook hook : hooks) {
+            if (!hook.canGrab(player, location)) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

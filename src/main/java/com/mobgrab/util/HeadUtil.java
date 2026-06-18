@@ -176,7 +176,9 @@ public class HeadUtil {
 
     private static ItemStack createTexturedHead(String textureValue) {
         ItemStack head = new ItemStack(Material.PLAYER_HEAD);
-        SkullMeta meta = (SkullMeta) head.getItemMeta();
+        if (!(head.getItemMeta() instanceof SkullMeta meta)) {
+            return head; // defensive: never happens for PLAYER_HEAD, but don't risk a CCE/NPE
+        }
 
         PlayerProfile profile = Bukkit.createProfile(UUID.randomUUID(), "");
         profile.setProperty(new ProfileProperty("textures", textureValue));

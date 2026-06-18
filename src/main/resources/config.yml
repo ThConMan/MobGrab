@@ -46,6 +46,19 @@ rosestacker-pickup-whole-stack: false
 #   true  = blacklist mode (all mobs can be picked up unless listed as 'false')
 blacklist-mode: false
 
+# Fireproof mob items
+#   true  = grabbed mob items survive fire & lava (like netherite gear)
+#   false = they burn like normal items
+# Can also be toggled live from the admin GUI (/mobgrab gui).
+fireproof-items: true
+
+# Worlds where MobGrab is fully disabled (no pickup or placement).
+# Use exact world folder names, e.g.:
+# disabled-worlds:
+#   - world_nether
+#   - creative_plots
+disabled-worlds: []
+
 # ─── Geyser / Floodgate (Bedrock Support) ────────────
 # Automatically detected if Floodgate is installed.
 # Bedrock players get a form-based GUI instead of a chest inventory.
