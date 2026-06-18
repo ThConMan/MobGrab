@@ -77,6 +77,7 @@ enabled-mobs:
   BAT: true
   BEE: true
   CAMEL: true
+  CAMEL_HUSK: true
   CAT: true
   CHICKEN: true
   COD: true
@@ -112,10 +113,16 @@ enabled-mobs:
 
   HAPPY_GHAST: true
 
+  # New passive (Mounts of Mayhem / Chaos Cubed)
+  NAUTILUS: true
+  ZOMBIE_NAUTILUS: true
+  SULFUR_CUBE: true
+
   # Utility
   IRON_GOLEM: true
   SNOW_GOLEM: true
   COPPER_GOLEM: true
+  MANNEQUIN: true
 
   # Villagers
   VILLAGER: true
@@ -160,8 +167,11 @@ enabled-mobs:
 
   # Hostile (new)
   CREAKING: true
+  PARCHED: true
+  ILLUSIONER: true
 
   # Disabled by default (too OP or game-breaking)
+  GIANT: false
   WARDEN: false
   WITHER: false
   ENDER_DRAGON: false
