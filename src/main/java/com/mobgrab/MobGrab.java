@@ -51,7 +51,7 @@ public final class MobGrab extends JavaPlugin {
             cmd.setTabCompleter(handler);
         }
 
-        getLogger().info("MobGrab v" + getDescription().getVersion() + " enabled"
+        getLogger().info("MobGrab v" + getPluginMeta().getVersion() + " enabled"
                 + (geyserSupport.isAvailable() ? " (Geyser support active)" : "") + ".");
     }
 
