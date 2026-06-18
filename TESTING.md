@@ -1,7 +1,9 @@
-# MobGrab 2.1.0 — Human Testing Checklist
+# MobGrab 2.1.0 — Human Testing Checklist (Paper 26.1.2 build)
 
-Built + automatically validated on a headless **Paper 26.2** server (loads, reloads,
-summons all new mobs, zero errors). The items below need a real 26.2 client and a human.
+This is the **26.1.2** build (`feat/mc-26.1`) — the one that runs on your SMP. Auto-validated
+on a headless Paper 26.1.2 server (loads, reloads, summons the new mobs, zero plugin errors).
+The items below need a real 26.1.2 client and a human. (The sulfur cube is 26.2-only and lives
+on the separate `feat/mc-26.2-all-mobs` build.)
 
 ## Build / deploy
 ```bash
@@ -10,20 +12,18 @@ cd ~/MobGrab
 # or drop straight into your SMP:
 ./gradlew build -PpluginDir=/home/con/smp/plugins
 ```
-Server must run **Java 25** (Paper 26.2 requires it).
+Server must run **Paper 26.1.2** on **Java 25**.
 
 ## Smoke (already auto-tested, re-confirm in-game)
-- [ ] Server starts, console shows `MobGrab v2.1.0 enabled` + `Loaded 91 mob toggles`.
+- [ ] Server starts, console shows `MobGrab v2.1.0 enabled` + `Loaded 90 mob toggles`.
 - [ ] `/mobgrab gui` opens the settings chest.
 
 ## All-mobs + new mobs
 - [ ] In the GUI, page through — every mob has a head icon (no blank/steve heads).
-- [ ] New mobs appear and toggle: **sulfur_cube, camel_husk, parched, mannequin,
-      nautilus, zombie_nautilus** (also giant/illusioner).
-- [ ] Sneak + right-click a **sulfur cube** → you get a head item that *looks like a
-      sulfur cube* (yellow cracked cube w/ eyes); lore shows **Size** + **Explosive**.
-- [ ] Right-click a block with it → the sulfur cube comes back with its state.
-- [ ] Repeat grab/place for camel_husk, parched, mannequin, a nautilus.
+- [ ] New mobs appear and toggle: **camel_husk, parched, mannequin, nautilus,
+      zombie_nautilus** (also giant/illusioner).
+- [ ] Sneak + right-click each new mob → you get a head item; right-click a block to place it
+      back with its state preserved.
 
 ## Fireproof items (your request)
 - [ ] In the GUI, the **Fireproof Items** button (netherite ingot) toggles ON/OFF and persists.
