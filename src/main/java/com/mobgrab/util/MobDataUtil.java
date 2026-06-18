@@ -7,6 +7,7 @@ import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.MerchantRecipe;
@@ -68,8 +69,10 @@ public final class MobDataUtil {
         }
 
         if (entity instanceof LivingEntity living) {
+            var maxAttr = living.getAttribute(Attribute.MAX_HEALTH);
+            double maxHealth = maxAttr != null ? maxAttr.getValue() : living.getHealth();
             lore.add(label("Health",
-                    String.format("%.1f/%.1f", living.getHealth(), living.getMaxHealth()),
+                    String.format("%.1f/%.1f", living.getHealth(), maxHealth),
                     NamedTextColor.RED));
         }
 
@@ -219,6 +222,14 @@ public final class MobDataUtil {
                 default -> "Size " + phantom.getSize();
             };
             lore.add(label("Size", sizeName, NamedTextColor.WHITE));
+        }
+
+        // Sulfur Cube (Chaos Cubed) — splits like a slime and can be ignited to explode
+        if (entity instanceof SulfurCube cube) {
+            lore.add(label("Size", "Size " + cube.getSize(), NamedTextColor.WHITE));
+            if (cube.canExplode()) {
+                lore.add(tag("Explosive", NamedTextColor.GOLD));
+            }
         }
 
         // Tropical Fish
