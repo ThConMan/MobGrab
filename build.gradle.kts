@@ -34,6 +34,14 @@ dependencies {
     compileOnly("com.google.inject:guice:5.1.0")
     compileOnly("com.github.TechFortress:GriefPrevention:17.0.0") { isTransitive = false }
     compileOnly("dev.rosewood:rosestacker:1.5.38") { isTransitive = false }
+
+    testImplementation("io.papermc.paper:paper-api:26.2.build.21-alpha")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.11.4")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+}
+
+tasks.test {
+    useJUnitPlatform()
 }
 
 tasks.jar {
