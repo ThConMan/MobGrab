@@ -201,7 +201,7 @@ fetch('https://api.github.com/repos/ThConMan/MobGrab/releases/latest')
     .then(r => r.json())
     .then(data => {
         if (data.tag_name) {
-            document.getElementById('version-badge').textContent = 'Paper 26.1.2 \u2022 ' + data.tag_name;
+            document.getElementById('version-badge').textContent = 'Paper 26.1+ \u2022 ' + data.tag_name;
         }
         const jar = data.assets && data.assets.find(a => a.name.endsWith('.jar'));
         if (jar) {
