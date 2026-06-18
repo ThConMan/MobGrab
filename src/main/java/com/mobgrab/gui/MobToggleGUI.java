@@ -94,6 +94,8 @@ public final class MobToggleGUI implements Listener {
             inv.setItem(53, createNavItem(Material.ARROW, "Next Page"));
         }
 
+        inv.setItem(47, createFireproofToggle());
+
         player.openInventory(inv);
     }
 
@@ -117,6 +119,12 @@ public final class MobToggleGUI implements Listener {
             open(player, page + 1);
             return;
         }
+        if (slot == 47) {
+            var cm = plugin.getConfigManager();
+            cm.setFireproofItems(!cm.isFireproofItems());
+            open(player, page);
+            return;
+        }
         if (slot >= SLOTS_PER_PAGE) return;
 
         int index = page * SLOTS_PER_PAGE + slot;
@@ -124,6 +132,29 @@ public final class MobToggleGUI implements Listener {
 
         plugin.getConfigManager().toggleMob(mobTypes.get(index));
         open(player, page);
+    }
+
+    @EventHandler
+    public void onPlayerQuit(org.bukkit.event.player.PlayerQuitEvent event) {
+        playerPages.remove(event.getPlayer().getUniqueId());
+    }
+
+    private ItemStack createFireproofToggle() {
+        boolean on = plugin.getConfigManager().isFireproofItems();
+        ItemStack item = new ItemStack(on ? Material.NETHERITE_INGOT : Material.BUCKET);
+        ItemMeta meta = item.getItemMeta();
+        meta.displayName(Component.text("Fireproof Items: " + (on ? "ON" : "OFF"),
+                on ? NamedTextColor.GREEN : NamedTextColor.RED)
+                .decoration(TextDecoration.ITALIC, false));
+        meta.lore(List.of(
+                Component.text(on ? "Mob items survive fire & lava" : "Mob items burn normally",
+                        NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false),
+                Component.empty(),
+                Component.text("Click to toggle", NamedTextColor.GRAY)
+                        .decoration(TextDecoration.ITALIC, false)
+        ));
+        item.setItemMeta(meta);
+        return item;
     }
 
     private int getTotalPages() {

@@ -310,6 +310,12 @@ public final class MobDataUtil {
             meta.getPersistentDataContainer().set(MobGrab.MOB_STACK_KEY, PersistentDataType.INTEGER, stackSize);
         }
 
+        // Fireproof mob items (like netherite gear) so a pocketed mob can't be lost to fire/lava.
+        MobGrab plugin = MobGrab.getInstance();
+        if (plugin != null && plugin.getConfigManager().isFireproofItems()) {
+            meta.setFireResistant(true);
+        }
+
         item.setItemMeta(meta);
         return item;
     }
