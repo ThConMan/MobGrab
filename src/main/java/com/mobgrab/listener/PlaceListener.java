@@ -94,8 +94,7 @@ public final class PlaceListener implements Listener {
             return;
         }
 
-        // Re-validate on placement: a disabled mob (or one handed/traded after being disabled)
-        // must not be placeable. This is also the only enable-gate for ClickVillagers items.
+        // don't place a mob that's currently disabled (item may predate the toggle)
         if (!plugin.getConfigManager().isMobEnabled(type)) {
             player.sendMessage(Component.text("That mob can't be placed here.", NamedTextColor.RED));
             return;

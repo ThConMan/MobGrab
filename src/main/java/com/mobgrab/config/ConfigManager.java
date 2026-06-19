@@ -71,7 +71,7 @@ public final class ConfigManager {
                 try {
                     enabledMobs.put(EntityType.valueOf(key.toUpperCase()), section.getBoolean(key));
                 } catch (IllegalArgumentException ignored) {
-                    // e.g. SULFUR_CUBE on a 26.1.x server — simply not in this MC version.
+                    // mob doesn't exist on this version (e.g. sulfur cube on 26.1.x)
                     plugin.getLogger().info("Skipping config mob '" + key + "' — not present in this Minecraft version.");
                 }
             }
@@ -132,9 +132,7 @@ public final class ConfigManager {
 
     private static Sound parseSound(String value, Sound fallback) {
         if (value == null || value.isBlank()) return fallback;
-        // Sound#valueOf was removed/marked-for-removal once sounds became registry-backed.
-        // Look up via Registry.SOUNDS. Accept legacy enum-style names (ENTITY_CHICKEN_EGG),
-        // dotted keys (entity.chicken.egg) and namespaced keys (minecraft:entity.chicken.egg).
+        // accepts ENTITY_CHICKEN_EGG, entity.chicken.egg, or minecraft:entity.chicken.egg
         String v = value.toLowerCase();
         String path = v.contains(":") ? v.substring(v.indexOf(':') + 1) : v;
         if (!path.contains(".")) path = path.replace('_', '.');

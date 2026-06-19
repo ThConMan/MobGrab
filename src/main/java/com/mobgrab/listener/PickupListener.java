@@ -63,8 +63,7 @@ public final class PickupListener implements Listener {
             return;
         }
 
-        // Guard against a full inventory BEFORE removing the entity, so a pocketed mob
-        // can't be dropped on the ground (or into lava) and lost.
+        // check for space before removing the mob so a full inventory can't lose it
         if (player.getInventory().firstEmpty() == -1) {
             player.sendMessage(Component.text("Your inventory is full!", NamedTextColor.RED));
             event.setCancelled(true);
