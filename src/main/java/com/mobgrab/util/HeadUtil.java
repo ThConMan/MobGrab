@@ -143,14 +143,11 @@ public class HeadUtil {
         VILLAGER_PROFESSION_TEXTURES.put(Villager.Profession.CARTOGRAPHER, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTQyNDhkZDA2ODAzMDVhZDczYjIxNGU4YzZiMDAwOTRlMjdhNGRkZDgwMzQ2NzY5MjFmOTA1MTMwYjg1OGJkYiJ9fX0=");
         VILLAGER_PROFESSION_TEXTURES.put(Villager.Profession.NITWIT, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDE0YmZmMWEzOGM5MTU0ZTVlYzg0Y2U1Y2YwMGM1ODc2OGUwNjhlYjQyYjJkODlhNmJiZDI5Nzg3NTkwMTA2YiJ9fX0=");
 
-        // The sulfur cube (Chaos Cubed / 26.2) doesn't exist on 26.1.x. Register its head
-        // reflectively by name (valueOf, not a field ref) so this one jar runs on both
-        // 26.1.2 and 26.2 — present where it exists, silently skipped where it doesn't.
+        // sulfur cube only exists on 26.2+, look it up by name so older versions don't choke
         try {
             MOB_TEXTURES.put(EntityType.valueOf("SULFUR_CUBE"),
                     "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjY4ZDMxZGYzOTg2M2RmYjFiN2QwOWM0YjE2OTU3MGE2NDMyZTM1YTE0ZGVlYzFkNmQzNTI3MzkxNDY3MzExYyJ9fX0=");
         } catch (IllegalArgumentException ignored) {
-            // 26.1.x runtime — no SULFUR_CUBE entity; nothing to register.
         }
     }
 
@@ -183,7 +180,7 @@ public class HeadUtil {
     private static ItemStack createTexturedHead(String textureValue) {
         ItemStack head = new ItemStack(Material.PLAYER_HEAD);
         if (!(head.getItemMeta() instanceof SkullMeta meta)) {
-            return head; // defensive: never happens for PLAYER_HEAD, but don't risk a CCE/NPE
+            return head;
         }
 
         PlayerProfile profile = Bukkit.createProfile(UUID.randomUUID(), "");

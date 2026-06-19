@@ -31,14 +31,11 @@ public final class MobGrab extends JavaPlugin {
 
     @Override
     public void onLoad() {
-        // WorldGuard custom flags must be registered before WorldGuard enables.
-        // Guard the class reference itself: MobGrabFlags' field type is a WorldGuard
-        // StateFlag, so it can't even load without WorldGuard on the classpath.
+        // WG flags have to be registered before WorldGuard enables; skip if it's not installed
         try {
             Class.forName("com.sk89q.worldguard.WorldGuard");
             com.mobgrab.compat.MobGrabFlags.register(getLogger());
         } catch (ClassNotFoundException | NoClassDefFoundError e) {
-            // WorldGuard not installed — the custom 'mob-grab' flag is simply unavailable.
         }
     }
 

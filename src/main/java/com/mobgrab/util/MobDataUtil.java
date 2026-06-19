@@ -302,9 +302,7 @@ public final class MobDataUtil {
             meta.getPersistentDataContainer().set(MobGrab.MOB_STACK_KEY, PersistentDataType.INTEGER, stackSize);
         }
 
-        // NOTE: fireproofing is NOT baked into the item. ItemFireproofListener cancels
-        // fire/lava damage to MobGrab items based on the *current* config, so the toggle
-        // applies live to every existing item in the world (no per-item flag, no refresh).
+        // fireproofing is handled live in ItemFireproofListener, not stored on the item
 
         item.setItemMeta(meta);
         return item;

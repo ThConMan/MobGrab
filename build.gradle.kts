@@ -29,8 +29,7 @@ dependencies {
     compileOnly("com.sk89q.worldedit:worldedit-core:7.3.0") { isTransitive = false }
     compileOnly("com.intellectualsites.plotsquared:plotsquared-core:7.5.11") { isTransitive = false }
     compileOnly("com.intellectualsites.plotsquared:plotsquared-bukkit:7.5.11") { isTransitive = false }
-    // PlotSquared API classes carry Guice type-annotations; JDK 25 javac needs TypeLiteral on the
-    // classpath to read them even though we never call Guice. Provide it (compile-time only).
+    // lets javac read PlotSquared's Guice-annotated API classes
     compileOnly("com.google.inject:guice:5.1.0")
     compileOnly("com.github.TechFortress:GriefPrevention:17.0.0") { isTransitive = false }
     compileOnly("dev.rosewood:rosestacker:1.5.38") { isTransitive = false }

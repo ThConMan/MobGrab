@@ -8,11 +8,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 
 /**
- * Stops grabbed-mob items from burning in fire/lava while {@code fireproof-items} is on.
- *
- * <p>This is checked at damage time against the <em>current</em> config rather than baked
- * into each item, so toggling fireproof (config or GUI) instantly applies to every existing
- * MobGrab item already in the world — no per-item flag and no "refresh" sweep needed.
+ * Stops mob items from burning in fire/lava when fireproof-items is on. Checked against the
+ * current config at damage time, so toggling it applies to items already in the world.
  */
 public final class ItemFireproofListener implements Listener {
 

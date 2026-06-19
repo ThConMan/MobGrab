@@ -9,15 +9,11 @@ import com.sk89q.worldguard.protection.flags.registry.FlagRegistry;
 import java.util.logging.Logger;
 
 /**
- * Holds MobGrab's custom WorldGuard region flag.
- *
- * <p>{@code mob-grab} (default ALLOW) — set it to {@code deny} in a region to stop players
- * picking up mobs there. Registration must happen in {@code onLoad()}, before WorldGuard
- * enables. If WorldGuard is absent the feature is simply unavailable ({@link #MOB_GRAB} stays null).
+ * The "mob-grab" WorldGuard flag. Set it to deny in a region to block pickups there.
+ * Must be registered from onLoad(); null if WorldGuard isn't present.
  */
 public final class MobGrabFlags {
 
-    /** Null when WorldGuard isn't installed or the flag couldn't be registered. */
     public static StateFlag MOB_GRAB = null;
 
     private MobGrabFlags() {
