@@ -55,6 +55,7 @@ public final class MobGrab extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(new PickupListener(this), this);
         getServer().getPluginManager().registerEvents(new PlaceListener(this), this);
+        getServer().getPluginManager().registerEvents(new com.mobgrab.listener.ItemFireproofListener(this), this);
         getServer().getPluginManager().registerEvents(mobToggleGUI, this);
 
         var cmd = getCommand("mobgrab");
