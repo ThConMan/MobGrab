@@ -179,8 +179,15 @@ body {
     box-shadow: 0 18px 70px rgba(63, 185, 80, 0.36);
 }
 
-/* Tighter, more confident section headings. */
-.section-title { letter-spacing: -0.02em; font-weight: 800; }
+/* Section headings: solid bright text. A gradient clipped to centered text only
+   samples its dim middle band, so headings read grey — keep them crisp instead. */
+.section-title {
+    background: none;
+    -webkit-text-fill-color: #eef6f1;
+    color: #eef6f1;
+    letter-spacing: -0.02em;
+    font-weight: 800;
+}
 
 /* Cards lift slightly on hover. */
 .feature-card, .step-card, .compat-item {
