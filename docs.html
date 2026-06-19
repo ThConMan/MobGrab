@@ -46,6 +46,7 @@
             <a href="#config">Configuration</a>
             <a href="#mob-info">Mob Info Display</a>
             <a href="#trades">Villager Trades</a>
+            <a href="#presets">Custom Presets</a>
             <a href="#compatibility">Compatibility</a>
         </nav>
     </aside>
@@ -252,6 +253,58 @@ Trades (6)
                 <li>Enchanted book trades show the enchantment name directly as the result</li>
                 <li>Exhausted trades (no uses left) appear with strikethrough</li>
             </ul>
+        </section>
+
+        <section id="presets" class="docs-section">
+            <h2>Custom Presets</h2>
+            <p>A preset is a saved mob you hand out as an item. Define them in
+               <span class="mono">plugins/MobGrab/presets.yml</span>, then give them out.</p>
+
+            <h3>Commands</h3>
+            <ul class="docs-list">
+                <li><span class="mono">/mobgrab save &lt;name&gt;</span> — save the mob you're looking at (works for any mob)</li>
+                <li><span class="mono">/mobgrab give &lt;player|@s&gt; &lt;preset&gt;</span> — give the preset item</li>
+                <li><span class="mono">/mobgrab list</span> — list presets · <span class="mono">/mobgrab delete &lt;name&gt;</span> — remove one</li>
+                <li><span class="mono">/mobgrab reload</span> — reload after editing the file</li>
+            </ul>
+
+            <h3>Hand-written villager preset</h3>
+            <p>Best for custom trader villagers. Each top-level key is the preset name:</p>
+            <div class="docs-code">
+mending_master:
+  type: VILLAGER
+  name: "&amp;6Mending Master"     # &amp; colour codes
+  profession: LIBRARIAN           # job (see list below)
+  level: 5                        # 1-5; 5 unlocks all trades
+  villager-type: PLAINS           # biome skin (optional)
+  health: 40                      # optional
+  trades:
+    - ingredient1: "EMERALD:5"    # what the player pays
+      ingredient2: "BOOK:1"       # optional second cost
+      result: "ENCHANTED_BOOK:1"  # what they receive
+      enchantments:
+        mending: 1                # enchant the result (name: level)
+      max-uses: 9999              # uses before it locks
+            </div>
+
+            <h3>Fields</h3>
+            <ul class="docs-list">
+                <li><span class="mono">type</span> — entity type; defaults to <span class="mono">VILLAGER</span></li>
+                <li><span class="mono">profession</span> — LIBRARIAN, ARMORER, WEAPONSMITH, TOOLSMITH, FARMER, CLERIC, FLETCHER, CARTOGRAPHER, BUTCHER, MASON, SHEPHERD, FISHERMAN, LEATHERWORKER, NITWIT, NONE</li>
+                <li><span class="mono">villager-type</span> — PLAINS, DESERT, JUNGLE, SAVANNA, SNOW, SWAMP, TAIGA</li>
+                <li><span class="mono">trades</span> — list of <span class="mono">ingredient1</span> / optional <span class="mono">ingredient2</span> / <span class="mono">result</span> / optional <span class="mono">enchantments</span> / <span class="mono">max-uses</span></li>
+                <li><span class="mono">equipment</span> — optional helmet / chestplate / leggings / boots / main-hand / off-hand, each a material with optional enchantments</li>
+                <li>Items are <span class="mono">MATERIAL:AMOUNT</span> (e.g. <span class="mono">EMERALD:10</span>); enchantments use lowercase ids (<span class="mono">mending</span>, <span class="mono">sharpness</span>)</li>
+            </ul>
+
+            <h3>Snapshot any mob</h3>
+            <p>Look at any mob and run <span class="mono">/mobgrab save &lt;name&gt;</span>. It writes the exact mob
+               to <span class="mono">presets.yml</span> as a snapshot — don't hand-edit the <span class="mono">snbt</span>:</p>
+            <div class="docs-code">
+my_wolf:
+  type: WOLF
+  snbt: "{...full mob data...}"
+            </div>
         </section>
 
         <section id="compatibility" class="docs-section">

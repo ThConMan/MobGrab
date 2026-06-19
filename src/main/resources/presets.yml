@@ -1,13 +1,51 @@
 # ═══════════════════════════════════════════════════════════
-# MobGrab 2.0 — Mob Presets
+#  MobGrab — Mob Presets
+# ═══════════════════════════════════════════════════════════
 #
-# Create custom mob items:  /mobgrab give <player> <preset>
-# Save existing mobs:       /mobgrab save <name>
-# List all presets:          /mobgrab list
-# Delete a preset:           /mobgrab delete <name>
+#  A preset is a saved mob you can hand out as an item.
 #
-# Item format:  MATERIAL:AMOUNT  (e.g. EMERALD:10)
-# Enchantment keys: minecraft names (mending, unbreaking, etc.)
+#  COMMANDS
+#    /mobgrab give <player|@s> <preset>   give the preset item
+#    /mobgrab save <name>                 save the mob you're looking at
+#    /mobgrab list                        list all presets
+#    /mobgrab delete <name>               delete a preset
+#    /mobgrab reload                      reload this file after editing
+#
+#  Each top-level key below is a preset name (lowercase, no spaces). A preset
+#  can be written one of two ways:
+#
+#  ── 1. Hand-written (custom villagers) ─────────────────────
+#  Fields (all optional except type):
+#    type:          entity type. Defaults to VILLAGER.
+#    name:          display name. Use & colour codes, e.g. "&6Gold Trader".
+#    health:        max health, e.g. 40
+#    profession:    LIBRARIAN, ARMORER, WEAPONSMITH, TOOLSMITH, FARMER, CLERIC,
+#                   FLETCHER, CARTOGRAPHER, BUTCHER, MASON, SHEPHERD, FISHERMAN,
+#                   LEATHERWORKER, NITWIT, or NONE
+#    level:         villager level 1-5 (5 = master, all trades unlocked)
+#    villager-type: biome skin: PLAINS, DESERT, JUNGLE, SAVANNA, SNOW, SWAMP, TAIGA
+#    trades:        a list; each trade has:
+#                     ingredient1:  what the player pays   (MATERIAL:AMOUNT)
+#                     ingredient2:  optional second cost   (MATERIAL:AMOUNT)
+#                     result:       what they receive       (MATERIAL:AMOUNT)
+#                     enchantments: optional, on the result (name: level)
+#                     max-uses:     uses before it locks     (9999 = effectively unlimited)
+#    equipment:     optional helmet/chestplate/leggings/boots/main-hand/off-hand,
+#                   each a MATERIAL with optional enchantments
+#
+#  ── 2. Snapshot (auto, from /mobgrab save) ─────────────────
+#  Works for ANY mob. /mobgrab save <name> appends the exact mob you're looking
+#  at, as a snapshot you should not hand-edit:
+#    my_wolf:
+#      type: WOLF
+#      snbt: "{...full mob data...}"
+#
+#  FORMATS
+#    Items:        MATERIAL:AMOUNT         e.g. EMERALD:10, DIAMOND_SWORD:1
+#    Enchantments: lowercase minecraft id  e.g. mending: 1, sharpness: 5
+#    Colours:      & codes in names        e.g. &6 gold, &b aqua, &c red
+#
+#  Edit this file, then run /mobgrab reload. Examples below:
 # ═══════════════════════════════════════════════════════════
 
 # ── Librarians ────────────────────────────────────────────
