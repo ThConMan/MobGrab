@@ -1,4 +1,4 @@
-# MobGrab 2.1.0 — Human Testing Checklist (universal jar)
+# MobGrab 2.1.1 — Human Testing Checklist (universal jar)
 
 **One jar runs on both Paper 26.1.2 and 26.2.** Auto-validated on headless 26.1.2 and 26.2
 servers (loads, reloads, summons the new mobs, zero plugin errors). The items below need a
@@ -15,7 +15,7 @@ cd ~/MobGrab
 Server must run **Paper 26.1.2** on **Java 25**.
 
 ## Smoke (already auto-tested, re-confirm in-game)
-- [ ] Server starts, console shows `MobGrab v2.1.0 enabled` + `Loaded 90 mob toggles`.
+- [ ] Server starts, console shows `MobGrab v2.1.1 enabled` + `Loaded 90 mob toggles`.
 - [ ] `/mobgrab gui` opens the settings chest.
 
 ## All-mobs + new mobs
