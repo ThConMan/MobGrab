@@ -153,3 +153,48 @@
 
 /* Footer link */
 .footer a { color: var(--accent); }
+
+/* ── Visual polish ── */
+
+/* Clean emerald-on-dark backdrop — replaces the inherited purple/pink/blue wash. */
+body {
+    background-color: #0a0e0d;
+    background-image:
+        radial-gradient(ellipse 90% 55% at 50% -8%, rgba(63, 185, 80, 0.17) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 88% 12%, rgba(63, 185, 80, 0.07) 0%, transparent 55%),
+        radial-gradient(ellipse 60% 50% at 8% 38%, rgba(46, 160, 67, 0.05) 0%, transparent 55%);
+    background-repeat: no-repeat;
+}
+
+/* Hero: a focused emerald halo and a logo that lifts on hover. */
+.plugin-hero {
+    background: radial-gradient(ellipse 62% 75% at 50% 0%, rgba(63, 185, 80, 0.22) 0%, transparent 66%);
+}
+.plugin-hero-logo {
+    box-shadow: 0 12px 55px rgba(63, 185, 80, 0.26);
+    transition: transform 0.45s ease, box-shadow 0.45s ease;
+}
+.plugin-hero-logo:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 70px rgba(63, 185, 80, 0.36);
+}
+
+/* Tighter, more confident section headings. */
+.section-title { letter-spacing: -0.02em; font-weight: 800; }
+
+/* Cards lift slightly on hover. */
+.feature-card, .step-card, .compat-item {
+    transition: transform 0.18s ease, border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+.feature-card:hover, .step-card:hover { transform: translateY(-3px); }
+.feature-icon-wrap { border-radius: 12px; }
+
+/* CTA: the brightest object on the page. */
+.cta-card {
+    background: linear-gradient(135deg, rgba(63, 185, 80, 0.12) 0%, rgba(16, 22, 20, 0.55) 60%);
+    border-color: rgba(63, 185, 80, 0.28);
+    box-shadow: 0 0 55px rgba(63, 185, 80, 0.07);
+}
+
+/* Inline code in brand green, not purple. */
+.mono { color: var(--accent-light); }
