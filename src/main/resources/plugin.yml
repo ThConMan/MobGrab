@@ -23,7 +23,7 @@ permissions:
 
   mobgrab.pickup.*:
     description: Pick up all enabled mobs (includes all bundles)
-    default: false
+    default: op
     children:
       mobgrab.pickup.passive: true
       mobgrab.pickup.hostile: true
@@ -436,7 +436,7 @@ permissions:
   # ════════════════════════════════════════════════════════════════════
   mobgrab.place:
     description: Place mobs back down from items
-    default: false
+    default: op
   mobgrab.admin:
     description: Access to /mobgrab GUI and reload commands
     default: op
