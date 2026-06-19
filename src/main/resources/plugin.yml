@@ -4,7 +4,7 @@ main: com.mobgrab.MobGrab
 api-version: '1.21'
 description: Pick up mobs as items, place them back down, and create custom mob presets
 author: Con
-website: https://nomonom.net
+website: https://thconman.github.io/MobGrab/
 softdepend:
   - floodgate
   - WorldGuard

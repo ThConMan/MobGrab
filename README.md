@@ -4,7 +4,7 @@ A PaperMC plugin that lets players pick up mobs as items and place them back dow
 entity state preserved (health, equipment, trades, name, variant, age, …). Includes a
 villager/mob preset engine.
 
-- **Website:** https://nomonom.net
+- **Website:** https://thconman.github.io/MobGrab/
 - **Requires:** Paper **26.1.2 or 26.2** · **Java 25** — one jar, auto-adapts to the server version
 
 ## Features
