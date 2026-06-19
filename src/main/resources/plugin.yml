@@ -1,5 +1,5 @@
 name: MobGrab
-version: '2.0.0'
+version: '2.1.1'
 main: com.mobgrab.MobGrab
 api-version: '1.21'
 description: Pick up mobs as items, place them back down, and create custom mob presets
@@ -14,7 +14,7 @@ softdepend:
 commands:
   mobgrab:
     description: MobGrab admin commands
-    usage: /mobgrab <gui|reload|update|give|list|save|delete>
+    usage: /mobgrab <gui|reload|enable|disable|status|update|give|list|save|delete>
 
 permissions:
   # ════════════════════════════════════════════════════════════════════
@@ -23,7 +23,7 @@ permissions:
 
   mobgrab.pickup.*:
     description: Pick up all enabled mobs (includes all bundles)
-    default: false
+    default: op
     children:
       mobgrab.pickup.passive: true
       mobgrab.pickup.hostile: true
@@ -76,6 +76,10 @@ permissions:
       mobgrab.pickup.wolf: true
       mobgrab.pickup.zombie_horse: true
       mobgrab.pickup.happy_ghast: true
+      mobgrab.pickup.camel_husk: true
+      mobgrab.pickup.nautilus: true
+      mobgrab.pickup.zombie_nautilus: true
+      mobgrab.pickup.sulfur_cube: true
 
   mobgrab.pickup.hostile:
     description: Pick up hostile mobs (zombies, skeletons, creepers, etc.)
@@ -115,6 +119,9 @@ permissions:
       mobgrab.pickup.zombie: true
       mobgrab.pickup.zombified_piglin: true
       mobgrab.pickup.creaking: true
+      mobgrab.pickup.parched: true
+      mobgrab.pickup.illusioner: true
+      mobgrab.pickup.giant: true
 
   # Granting this also grants zombie_villager pickup
   mobgrab.pickup.villager:
@@ -124,12 +131,13 @@ permissions:
       mobgrab.pickup.zombie_villager: true
 
   mobgrab.pickup.utility:
-    description: Pick up utility mobs (iron golems, snow golems, copper golems)
+    description: Pick up utility mobs (iron golems, snow golems, copper golems, mannequins)
     default: false
     children:
       mobgrab.pickup.iron_golem: true
       mobgrab.pickup.snow_golem: true
       mobgrab.pickup.copper_golem: true
+      mobgrab.pickup.mannequin: true
 
   mobgrab.pickup.boss:
     description: Pick up boss mobs (warden, wither, ender dragon)
@@ -267,6 +275,18 @@ permissions:
   mobgrab.pickup.happy_ghast:
     description: Pick up happy ghasts
     default: false
+  mobgrab.pickup.camel_husk:
+    description: Pick up camel husks
+    default: false
+  mobgrab.pickup.nautilus:
+    description: Pick up nautiluses
+    default: false
+  mobgrab.pickup.zombie_nautilus:
+    description: Pick up zombie nautiluses
+    default: false
+  mobgrab.pickup.sulfur_cube:
+    description: Pick up sulfur cubes (26.2+)
+    default: false
 
   # ── Hostile ────────────────────────────────────────────────────────
   mobgrab.pickup.blaze:
@@ -371,6 +391,15 @@ permissions:
   mobgrab.pickup.creaking:
     description: Pick up creakings
     default: false
+  mobgrab.pickup.parched:
+    description: Pick up parched
+    default: false
+  mobgrab.pickup.illusioner:
+    description: Pick up illusioners
+    default: false
+  mobgrab.pickup.giant:
+    description: Pick up giants
+    default: false
 
   # ── Villagers ──────────────────────────────────────────────────────
   mobgrab.pickup.zombie_villager:
@@ -386,6 +415,9 @@ permissions:
     default: false
   mobgrab.pickup.copper_golem:
     description: Pick up copper golems
+    default: false
+  mobgrab.pickup.mannequin:
+    description: Pick up mannequins
     default: false
 
   # ── Boss ───────────────────────────────────────────────────────────
@@ -404,7 +436,7 @@ permissions:
   # ════════════════════════════════════════════════════════════════════
   mobgrab.place:
     description: Place mobs back down from items
-    default: false
+    default: op
   mobgrab.admin:
     description: Access to /mobgrab GUI and reload commands
     default: op

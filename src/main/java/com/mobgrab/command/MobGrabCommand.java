@@ -16,6 +16,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.RayTraceResult;
@@ -60,6 +61,9 @@ public final class MobGrabCommand implements CommandExecutor, TabCompleter {
             case "gui" -> handleGui(sender);
             case "reload" -> handleReload(sender);
             case "update" -> handleUpdate(sender);
+            case "enable" -> handleEnableDisable(sender, args, true);
+            case "disable" -> handleEnableDisable(sender, args, false);
+            case "status" -> handleStatus(sender);
             case "give" -> handleGive(sender, args);
             case "list" -> handleList(sender);
             case "save" -> handleSave(sender, args);
@@ -78,6 +82,9 @@ public final class MobGrabCommand implements CommandExecutor, TabCompleter {
 
         helpLine(sender, "/mobgrab gui", "Open mob toggle GUI");
         helpLine(sender, "/mobgrab reload", "Reload config & presets");
+        helpLine(sender, "/mobgrab enable <mob>", "Enable a mob for pickup");
+        helpLine(sender, "/mobgrab disable <mob>", "Disable a mob for pickup");
+        helpLine(sender, "/mobgrab status", "Show enabled count & settings");
         helpLine(sender, "/mobgrab update", "Update plugin from GitHub");
         sender.sendMessage(Component.empty());
 
@@ -123,6 +130,59 @@ public final class MobGrabCommand implements CommandExecutor, TabCompleter {
         sender.sendMessage(Component.text("MobGrab config & presets reloaded.", NamedTextColor.GREEN));
     }
 
+    // ── Enable / Disable / Status ────────────────────────
+
+    private void handleEnableDisable(CommandSender sender, String[] args, boolean enable) {
+        if (!sender.hasPermission("mobgrab.admin")) {
+            sender.sendMessage(Component.text("No permission.", NamedTextColor.RED));
+            return;
+        }
+        if (args.length < 2) {
+            sender.sendMessage(Component.text("Usage: /mobgrab " + (enable ? "enable" : "disable")
+                    + " <mob>", NamedTextColor.RED));
+            return;
+        }
+        EntityType type;
+        try {
+            type = EntityType.valueOf(args[1].toUpperCase());
+        } catch (IllegalArgumentException e) {
+            sender.sendMessage(Component.text("Unknown mob: " + args[1], NamedTextColor.RED));
+            return;
+        }
+        if (!plugin.getMobToggleGUI().getMobTypes().contains(type)) {
+            sender.sendMessage(Component.text(args[1] + " isn't a grabbable mob.", NamedTextColor.RED));
+            return;
+        }
+        String name = MobDataUtil.formatEntityName(type);
+        if (plugin.getConfigManager().isMobEnabled(type) == enable) {
+            sender.sendMessage(Component.text(name + " is already " + (enable ? "enabled" : "disabled")
+                    + ".", NamedTextColor.YELLOW));
+            return;
+        }
+        plugin.getConfigManager().setMobEnabled(type, enable);
+        sender.sendMessage(Component.text(name + " " + (enable ? "enabled" : "disabled") + ".",
+                enable ? NamedTextColor.GREEN : NamedTextColor.RED));
+    }
+
+    private void handleStatus(CommandSender sender) {
+        if (!sender.hasPermission("mobgrab.admin")) {
+            sender.sendMessage(Component.text("No permission.", NamedTextColor.RED));
+            return;
+        }
+        var cm = plugin.getConfigManager();
+        var all = plugin.getMobToggleGUI().getMobTypes();
+        long enabled = all.stream().filter(cm::isMobEnabled).count();
+        sender.sendMessage(Component.text("MobGrab v" + plugin.getPluginMeta().getVersion(),
+                NamedTextColor.GOLD).decoration(TextDecoration.BOLD, true));
+        sender.sendMessage(Component.text(enabled + "/" + all.size() + " mobs enabled",
+                NamedTextColor.GREEN));
+        sender.sendMessage(Component.text("Fireproof items: " + (cm.isFireproofItems() ? "ON" : "OFF"),
+                NamedTextColor.GRAY));
+        sender.sendMessage(Component.text("Cooldown: " + cm.getCooldownSeconds() + "s", NamedTextColor.GRAY));
+        sender.sendMessage(Component.text("Presets: " + plugin.getPresetManager().getPresetNames().size(),
+                NamedTextColor.GRAY));
+    }
+
     // ── Give ─────────────────────────────────────────────
 
     private void handleGive(CommandSender sender, String[] args) {
@@ -139,7 +199,13 @@ public final class MobGrabCommand implements CommandExecutor, TabCompleter {
         String targetName = args[1];
         String presetName = args[2].toLowerCase();
 
-        Player target = Bukkit.getPlayerExact(targetName);
+        Player target;
+        if (targetName.equalsIgnoreCase("@s") && sender instanceof Player self) {
+            target = self;
+        } else {
+            target = Bukkit.getPlayerExact(targetName);
+            if (target == null) target = Bukkit.getPlayer(targetName); // case-insensitive fallback
+        }
         if (target == null) {
             sender.sendMessage(Component.text("Player not found: " + targetName, NamedTextColor.RED));
             return;
@@ -302,7 +368,7 @@ public final class MobGrabCommand implements CommandExecutor, TabCompleter {
                 JsonObject release = JsonParser.parseReader(new InputStreamReader(apiResponse.body())).getAsJsonObject();
                 String latestTag = release.get("tag_name").getAsString();
                 String latestVersion = latestTag.startsWith("v") ? latestTag.substring(1) : latestTag;
-                String currentVersion = plugin.getDescription().getVersion();
+                String currentVersion = plugin.getPluginMeta().getVersion();
 
                 if (currentVersion.equals(latestVersion)) {
                     sendSync(sender, Component.text("Already up to date! ", NamedTextColor.GREEN)
@@ -376,7 +442,8 @@ public final class MobGrabCommand implements CommandExecutor, TabCompleter {
                                                 @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
             String prefix = args[0].toLowerCase();
-            return Stream.of("gui", "reload", "update", "give", "list", "save", "delete")
+            return Stream.of("gui", "reload", "update", "enable", "disable", "status",
+                            "give", "list", "save", "delete")
                     .filter(s -> s.startsWith(prefix))
                     .toList();
         }
@@ -384,6 +451,13 @@ public final class MobGrabCommand implements CommandExecutor, TabCompleter {
         if (args.length == 2) {
             String sub = args[0].toLowerCase();
             String prefix = args[1].toLowerCase();
+
+            if (sub.equals("enable") || sub.equals("disable")) {
+                return plugin.getMobToggleGUI().getMobTypes().stream()
+                        .map(t -> t.name().toLowerCase())
+                        .filter(n -> n.startsWith(prefix))
+                        .toList();
+            }
 
             if (sub.equals("give")) {
                 // Tab complete online player names

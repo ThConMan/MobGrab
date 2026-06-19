@@ -23,6 +23,7 @@ import org.bukkit.persistence.PersistentDataType;
 public final class PlaceListener implements Listener {
 
     private final MobGrab plugin;
+    private final java.util.Map<java.util.UUID, Long> cooldowns = new java.util.HashMap<>();
 
     public PlaceListener(MobGrab plugin) {
         this.plugin = plugin;
@@ -42,6 +43,18 @@ public final class PlaceListener implements Listener {
 
         if (!player.hasPermission("mobgrab.place")) {
             player.sendMessage(Component.text("You don't have permission to place mobs.", NamedTextColor.RED));
+            event.setCancelled(true);
+            return;
+        }
+
+        if (plugin.getConfigManager().isWorldDisabled(player.getWorld())) {
+            event.setCancelled(true);
+            return;
+        }
+
+        long now = System.currentTimeMillis();
+        Long last = cooldowns.get(player.getUniqueId());
+        if (last != null && (now - last) < plugin.getConfigManager().getCooldownSeconds() * 1000L) {
             event.setCancelled(true);
             return;
         }
@@ -81,6 +94,12 @@ public final class PlaceListener implements Listener {
             return;
         }
 
+        // don't place a mob that's currently disabled (item may predate the toggle)
+        if (!plugin.getConfigManager().isMobEnabled(type)) {
+            player.sendMessage(Component.text("That mob can't be placed here.", NamedTextColor.RED));
+            return;
+        }
+
         Integer stackCount = pdc.has(MobGrab.MOB_STACK_KEY, PersistentDataType.INTEGER)
                 ? pdc.get(MobGrab.MOB_STACK_KEY, PersistentDataType.INTEGER)
                 : null;
@@ -94,17 +113,29 @@ public final class PlaceListener implements Listener {
             return;
         }
 
+        // Guard against forged/corrupt items whose SNBT doesn't match the claimed type.
+        if (spawned.getType() != type) {
+            spawned.remove();
+            player.sendMessage(Component.text("Invalid mob data.", NamedTextColor.RED));
+            return;
+        }
+
         if (stackCount != null && stackCount > 1 && spawned instanceof org.bukkit.entity.LivingEntity living) {
             try {
                 Class.forName("dev.rosewood.rosestacker.api.RoseStackerAPI");
                 com.mobgrab.compat.RoseStackerHook.setStackSize(living, stackCount);
             } catch (ClassNotFoundException ignored) {
-                // RoseStacker not present — single mob already spawned above
+                // RoseStacker not present — single mob spawned; warn that the stack count was dropped.
+                plugin.getLogger().warning("Placed a stacked mob item (x" + stackCount
+                        + ") but RoseStacker is not installed; spawned a single mob.");
+                player.sendMessage(Component.text("RoseStacker not installed — placed a single mob.",
+                        NamedTextColor.YELLOW));
             }
         }
 
         EffectUtil.playPlaceEffect(player, spawnLoc);
         item.setAmount(item.getAmount() - 1);
+        cooldowns.put(player.getUniqueId(), now);
 
         String entityName = MobDataUtil.formatEntityName(type);
         Component msg = Component.text("Placed ", NamedTextColor.GREEN);
@@ -118,6 +149,11 @@ public final class PlaceListener implements Listener {
                     .append(Component.text("!", NamedTextColor.GREEN));
         }
         player.sendMessage(msg);
+    }
+
+    @EventHandler
+    public void onPlayerQuit(org.bukkit.event.player.PlayerQuitEvent event) {
+        cooldowns.remove(event.getPlayer().getUniqueId());
     }
 
     private boolean isClickVillagersItem(ItemStack item) {

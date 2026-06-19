@@ -30,6 +30,16 @@ public final class MobGrab extends JavaPlugin {
     private PresetManager presetManager;
 
     @Override
+    public void onLoad() {
+        // WG flags have to be registered before WorldGuard enables; skip if it's not installed
+        try {
+            Class.forName("com.sk89q.worldguard.WorldGuard");
+            com.mobgrab.compat.MobGrabFlags.register(getLogger());
+        } catch (ClassNotFoundException | NoClassDefFoundError e) {
+        }
+    }
+
+    @Override
     public void onEnable() {
         instance = this;
         saveDefaultConfig();
@@ -42,6 +52,7 @@ public final class MobGrab extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(new PickupListener(this), this);
         getServer().getPluginManager().registerEvents(new PlaceListener(this), this);
+        getServer().getPluginManager().registerEvents(new com.mobgrab.listener.ItemFireproofListener(this), this);
         getServer().getPluginManager().registerEvents(mobToggleGUI, this);
 
         var cmd = getCommand("mobgrab");
@@ -51,7 +62,7 @@ public final class MobGrab extends JavaPlugin {
             cmd.setTabCompleter(handler);
         }
 
-        getLogger().info("MobGrab v" + getDescription().getVersion() + " enabled"
+        getLogger().info("MobGrab v" + getPluginMeta().getVersion() + " enabled"
                 + (geyserSupport.isAvailable() ? " (Geyser support active)" : "") + ".");
     }
 

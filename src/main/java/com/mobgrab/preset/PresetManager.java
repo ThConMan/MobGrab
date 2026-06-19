@@ -43,6 +43,12 @@ public class PresetManager {
 
     public void save() {
         try {
+            // Keep a one-deep backup so a bad save/edit can't silently destroy presets.
+            if (presetsFile.exists()) {
+                java.nio.file.Files.copy(presetsFile.toPath(),
+                        new File(presetsFile.getParentFile(), "presets.yml.bak").toPath(),
+                        java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+            }
             presetsConfig.save(presetsFile);
         } catch (IOException e) {
             plugin.getLogger().warning("Failed to save presets: " + e.getMessage());
@@ -142,7 +148,10 @@ public class PresetManager {
                 // Health
                 if (section.contains("health") && e instanceof LivingEntity living) {
                     double health = section.getDouble("health");
-                    living.setMaxHealth(health);
+                    var maxAttr = living.getAttribute(org.bukkit.attribute.Attribute.MAX_HEALTH);
+                    if (maxAttr != null) {
+                        maxAttr.setBaseValue(health);
+                    }
                     living.setHealth(health);
                 }
 
@@ -179,7 +188,9 @@ public class PresetManager {
                     String catType = section.getString("cat-type");
                     if (catType != null) {
                         try {
-                            var regCat = Registry.CAT_VARIANT.get(NamespacedKey.minecraft(catType.toLowerCase()));
+                            var regCat = io.papermc.paper.registry.RegistryAccess.registryAccess()
+                                    .getRegistry(io.papermc.paper.registry.RegistryKey.CAT_VARIANT)
+                                    .get(NamespacedKey.minecraft(catType.toLowerCase()));
                             if (regCat != null) cat.setCatType(regCat);
                         } catch (Exception ignored) {}
                     }
@@ -215,9 +226,10 @@ public class PresetManager {
         // Profession
         String prof = section.getString("profession");
         if (prof != null) {
-            try {
-                villager.setProfession(Villager.Profession.valueOf(prof.toUpperCase()));
-            } catch (IllegalArgumentException e) {
+            var profession = Registry.VILLAGER_PROFESSION.get(NamespacedKey.minecraft(prof.toLowerCase()));
+            if (profession != null) {
+                villager.setProfession(profession);
+            } else {
                 plugin.getLogger().warning("Unknown villager profession: " + prof);
             }
         }
@@ -228,9 +240,12 @@ public class PresetManager {
         // Villager type (biome variant)
         String villagerType = section.getString("villager-type");
         if (villagerType != null) {
-            try {
-                villager.setVillagerType(Villager.Type.valueOf(villagerType.toUpperCase()));
-            } catch (IllegalArgumentException ignored) {}
+            var type = Registry.VILLAGER_TYPE.get(NamespacedKey.minecraft(villagerType.toLowerCase()));
+            if (type != null) {
+                villager.setVillagerType(type);
+            } else {
+                plugin.getLogger().warning("Unknown villager type: " + villagerType);
+            }
         }
 
         // Trades

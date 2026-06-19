@@ -41,6 +41,8 @@ public final class PickupListener implements Listener {
 
         ConfigManager config = plugin.getConfigManager();
 
+        if (config.isWorldDisabled(player.getWorld())) return;
+
         if (!config.isMobEnabled(entity.getType())) {
             player.sendMessage(Component.text("This mob cannot be picked up.", NamedTextColor.RED));
             event.setCancelled(true);
@@ -55,8 +57,15 @@ public final class PickupListener implements Listener {
         }
 
         if (!player.hasPermission("mobgrab.bypass.protection")
-                && !plugin.getProtectionManager().canBuild(player, entity.getLocation())) {
+                && !plugin.getProtectionManager().canGrab(player, entity.getLocation())) {
             player.sendMessage(Component.text("You can't pick up mobs here.", NamedTextColor.RED));
+            event.setCancelled(true);
+            return;
+        }
+
+        // check for space before removing the mob so a full inventory can't lose it
+        if (player.getInventory().firstEmpty() == -1) {
+            player.sendMessage(Component.text("Your inventory is full!", NamedTextColor.RED));
             event.setCancelled(true);
             return;
         }
@@ -114,5 +123,10 @@ public final class PickupListener implements Listener {
                     .append(Component.text("!", NamedTextColor.GREEN));
         }
         player.sendMessage(msg);
+    }
+
+    @EventHandler
+    public void onPlayerQuit(org.bukkit.event.player.PlayerQuitEvent event) {
+        cooldowns.remove(event.getPlayer().getUniqueId());
     }
 }

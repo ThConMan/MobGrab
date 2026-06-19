@@ -1,0 +1,45 @@
+name: Build
+
+on:
+  push:
+    branches: ["**"]
+    tags: ["v*"]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 25
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "25"
+
+      - name: Build
+        run: ./gradlew build --no-daemon
+
+      - name: Checksum
+        run: |
+          cd build/libs
+          sha256sum MobGrab.jar | tee MobGrab.jar.sha256
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MobGrab
+          path: |
+            build/libs/MobGrab.jar
+            build/libs/MobGrab.jar.sha256
+
+      # On a vX.Y.Z tag, publish a GitHub release with the jar + checksum
+      # (the in-game /mobgrab update command pulls MobGrab.jar from the latest release).
+      - name: Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            build/libs/MobGrab.jar
+            build/libs/MobGrab.jar.sha256

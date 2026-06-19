@@ -3,11 +3,11 @@ plugins {
 }
 
 group = "com.mobgrab"
-version = "2.0.0"
+version = "2.1.1"
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(21))
+        languageVersion.set(JavaLanguageVersion.of(25))
     }
 }
 
@@ -21,7 +21,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:26.1.2.build.70-stable")
     compileOnly("org.geysermc.floodgate:api:2.2.4-SNAPSHOT")
     compileOnly("com.sk89q.worldguard:worldguard-bukkit:7.0.12") { isTransitive = false }
     compileOnly("com.sk89q.worldguard:worldguard-core:7.0.12") { isTransitive = false }
@@ -29,11 +29,25 @@ dependencies {
     compileOnly("com.sk89q.worldedit:worldedit-core:7.3.0") { isTransitive = false }
     compileOnly("com.intellectualsites.plotsquared:plotsquared-core:7.5.11") { isTransitive = false }
     compileOnly("com.intellectualsites.plotsquared:plotsquared-bukkit:7.5.11") { isTransitive = false }
+    // lets javac read PlotSquared's Guice-annotated API classes
+    compileOnly("com.google.inject:guice:5.1.0")
     compileOnly("com.github.TechFortress:GriefPrevention:17.0.0") { isTransitive = false }
     compileOnly("dev.rosewood:rosestacker:1.5.38") { isTransitive = false }
+
+    testImplementation("io.papermc.paper:paper-api:26.1.2.build.70-stable")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.11.4")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+}
+
+tasks.test {
+    useJUnitPlatform()
 }
 
 tasks.jar {
-    destinationDirectory.set(file("/home/con/smp/plugins"))
     archiveFileName.set("MobGrab.jar")
+    // Default output is build/libs/MobGrab.jar.
+    // Override with -PpluginDir=/path/to/server/plugins (e.g. your SMP plugins folder).
+    (project.findProperty("pluginDir") as String?)?.let {
+        destinationDirectory.set(file(it))
+    }
 }

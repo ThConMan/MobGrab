@@ -34,8 +34,8 @@
     <h1>MobGrab</h1>
     <p class="tagline">Pick up any mob as an item. Place them back down. All data preserved.</p>
     <div class="plugin-hero-meta">
-        <span class="hero-badge" id="version-badge">Paper 1.21+</span>
-        <span class="hero-badge">Java 21</span>
+        <span class="hero-badge" id="version-badge">Paper 26.1+</span>
+        <span class="hero-badge">Java 25</span>
     </div>
     <div class="hero-buttons">
         <a href="https://github.com/ThConMan/MobGrab/releases/latest" class="btn btn-primary" id="download-btn">
@@ -62,8 +62,8 @@
             <div class="feature-icon-wrap">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent-light)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
             </div>
-            <h3>85+ Mobs Supported</h3>
-            <p>Every mob in 1.21 can be picked up, each with a custom head texture.</p>
+            <h3>All 90+ Mobs Supported</h3>
+            <p>Every living mob in 26.2 can be picked up, each with a custom head texture.</p>
         </div>
         <div class="feature-card">
             <div class="feature-icon-wrap">
@@ -201,7 +201,7 @@ fetch('https://api.github.com/repos/ThConMan/MobGrab/releases/latest')
     .then(r => r.json())
     .then(data => {
         if (data.tag_name) {
-            document.getElementById('version-badge').textContent = 'Paper 1.21+ \u2022 ' + data.tag_name;
+            document.getElementById('version-badge').textContent = 'Paper 26.1+ \u2022 ' + data.tag_name;
         }
         const jar = data.assets && data.assets.find(a => a.name.endsWith('.jar'));
         if (jar) {

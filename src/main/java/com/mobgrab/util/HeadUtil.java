@@ -142,6 +142,13 @@ public class HeadUtil {
         VILLAGER_PROFESSION_TEXTURES.put(Villager.Profession.FISHERMAN, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjFkNjQ0NzYxZjcwNmQzMWM5OWE1OTNjOGQ1ZjdjYmJkNDM3MmQ3M2ZiZWU4NDY0ZjQ4MmZhNmMxMzlkOTdkNCJ9fX0=");
         VILLAGER_PROFESSION_TEXTURES.put(Villager.Profession.CARTOGRAPHER, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTQyNDhkZDA2ODAzMDVhZDczYjIxNGU4YzZiMDAwOTRlMjdhNGRkZDgwMzQ2NzY5MjFmOTA1MTMwYjg1OGJkYiJ9fX0=");
         VILLAGER_PROFESSION_TEXTURES.put(Villager.Profession.NITWIT, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDE0YmZmMWEzOGM5MTU0ZTVlYzg0Y2U1Y2YwMGM1ODc2OGUwNjhlYjQyYjJkODlhNmJiZDI5Nzg3NTkwMTA2YiJ9fX0=");
+
+        // sulfur cube only exists on 26.2+, look it up by name so older versions don't choke
+        try {
+            MOB_TEXTURES.put(EntityType.valueOf("SULFUR_CUBE"),
+                    "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjY4ZDMxZGYzOTg2M2RmYjFiN2QwOWM0YjE2OTU3MGE2NDMyZTM1YTE0ZGVlYzFkNmQzNTI3MzkxNDY3MzExYyJ9fX0=");
+        } catch (IllegalArgumentException ignored) {
+        }
     }
 
     public static ItemStack getMobHead(EntityType type) {
@@ -172,7 +179,9 @@ public class HeadUtil {
 
     private static ItemStack createTexturedHead(String textureValue) {
         ItemStack head = new ItemStack(Material.PLAYER_HEAD);
-        SkullMeta meta = (SkullMeta) head.getItemMeta();
+        if (!(head.getItemMeta() instanceof SkullMeta meta)) {
+            return head;
+        }
 
         PlayerProfile profile = Bukkit.createProfile(UUID.randomUUID(), "");
         profile.setProperty(new ProfileProperty("textures", textureValue));

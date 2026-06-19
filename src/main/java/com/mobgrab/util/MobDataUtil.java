@@ -7,6 +7,7 @@ import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.MerchantRecipe;
@@ -68,8 +69,10 @@ public final class MobDataUtil {
         }
 
         if (entity instanceof LivingEntity living) {
+            var maxAttr = living.getAttribute(Attribute.MAX_HEALTH);
+            double maxHealth = maxAttr != null ? maxAttr.getValue() : living.getHealth();
             lore.add(label("Health",
-                    String.format("%.1f/%.1f", living.getHealth(), living.getMaxHealth()),
+                    String.format("%.1f/%.1f", living.getHealth(), maxHealth),
                     NamedTextColor.RED));
         }
 
@@ -298,6 +301,8 @@ public final class MobDataUtil {
         if (stackSize > 1) {
             meta.getPersistentDataContainer().set(MobGrab.MOB_STACK_KEY, PersistentDataType.INTEGER, stackSize);
         }
+
+        // fireproofing is handled live in ItemFireproofListener, not stored on the item
 
         item.setItemMeta(meta);
         return item;
