@@ -123,8 +123,9 @@
                 <table class="docs-table">
                     <thead><tr><th>Permission</th><th>Description</th><th>Default</th></tr></thead>
                     <tbody>
-                        <tr><td><span class="mono">mobgrab.place</span></td><td>Place mob items back down</td><td><span class="docs-tag">false</span></td></tr>
+                        <tr><td><span class="mono">mobgrab.place</span></td><td>Place mob items back down</td><td><span class="docs-tag docs-tag-op">op</span></td></tr>
                         <tr><td><span class="mono">mobgrab.admin</span></td><td>Access <span class="mono">/mobgrab</span> commands and GUI</td><td><span class="docs-tag docs-tag-op">op</span></td></tr>
+                        <tr><td><span class="mono">mobgrab.update</span></td><td>Run <span class="mono">/mobgrab update</span> (downloads and installs the latest release)</td><td><span class="docs-tag docs-tag-op">op</span></td></tr>
                         <tr><td><span class="mono">mobgrab.bypass.protection</span></td><td>Ignore region protection checks</td><td><span class="docs-tag docs-tag-op">op</span></td></tr>
                     </tbody>
                 </table>
@@ -141,10 +142,27 @@
                 <table class="docs-table">
                     <thead><tr><th>Command</th><th>Description</th><th>Permission</th></tr></thead>
                     <tbody>
-                        <tr><td><span class="mono">/mobgrab gui</span></td><td>Opens the mob toggle GUI to enable/disable mobs</td><td><span class="mono">mobgrab.admin</span></td></tr>
-                        <tr><td><span class="mono">/mobgrab reload</span></td><td>Reloads the config file</td><td><span class="mono">mobgrab.admin</span></td></tr>
+                        <tr><td><span class="mono">/mobgrab gui</span></td><td>Open the mob toggle GUI</td><td><span class="mono">mobgrab.admin</span></td></tr>
+                        <tr><td><span class="mono">/mobgrab enable &lt;mob&gt;</span></td><td>Enable a mob for pickup</td><td><span class="mono">mobgrab.admin</span></td></tr>
+                        <tr><td><span class="mono">/mobgrab disable &lt;mob&gt;</span></td><td>Disable a mob for pickup</td><td><span class="mono">mobgrab.admin</span></td></tr>
+                        <tr><td><span class="mono">/mobgrab status</span></td><td>Show enabled count and current settings</td><td><span class="mono">mobgrab.admin</span></td></tr>
+                        <tr><td><span class="mono">/mobgrab reload</span></td><td>Reload config and presets</td><td><span class="mono">mobgrab.admin</span></td></tr>
+                        <tr><td><span class="mono">/mobgrab give &lt;player|@s&gt; &lt;preset&gt;</span></td><td>Give a preset mob item</td><td><span class="mono">mobgrab.admin</span></td></tr>
+                        <tr><td><span class="mono">/mobgrab list</span></td><td>List available presets</td><td><span class="mono">mobgrab.admin</span></td></tr>
+                        <tr><td><span class="mono">/mobgrab save &lt;name&gt;</span></td><td>Save the mob you're looking at as a preset</td><td><span class="mono">mobgrab.admin</span></td></tr>
+                        <tr><td><span class="mono">/mobgrab delete &lt;name&gt;</span></td><td>Delete a preset</td><td><span class="mono">mobgrab.admin</span></td></tr>
+                        <tr><td><span class="mono">/mobgrab update</span></td><td>Download and install the latest release jar</td><td><span class="mono">mobgrab.update</span></td></tr>
                     </tbody>
                 </table>
+            </div>
+
+            <div class="docs-callout">
+                <strong>About <span class="mono">/mobgrab update</span>:</strong> it checks the
+                <a href="https://github.com/ThConMan/MobGrab/releases">GitHub releases page</a> for a newer
+                version, and if one exists, downloads <span class="mono">MobGrab.jar</span> from that release
+                into your <span class="mono">plugins/</span> folder. It only pulls from the official public
+                repo, never runs automatically, and requires the <span class="mono">mobgrab.update</span>
+                permission (op by default). Restart the server to apply. Revoke the permission to disable it.
             </div>
         </section>
 

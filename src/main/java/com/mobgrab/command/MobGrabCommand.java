@@ -343,7 +343,7 @@ public final class MobGrabCommand implements CommandExecutor, TabCompleter {
     // ── Update ───────────────────────────────────────────
 
     private void handleUpdate(CommandSender sender) {
-        if (!sender.hasPermission("mobgrab.admin")) {
+        if (!sender.hasPermission("mobgrab.update") && !sender.hasPermission("mobgrab.admin")) {
             sender.sendMessage(Component.text("No permission.", NamedTextColor.RED));
             return;
         }

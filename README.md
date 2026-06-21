@@ -48,6 +48,7 @@ Requires JDK 25 (Paper 26.2's runtime). The Gradle wrapper is included.
 - `mobgrab.pickup.*` — pick up all mobs *(default op)* (or grant per-mob/bundle to players: `mobgrab.pickup.<mob>`, `.passive`, `.hostile`, `.utility`, `.villager`, `.boss`)
 - `mobgrab.place` — place mobs back down *(default op)*
 - `mobgrab.admin` — GUI, reload, enable/disable, presets *(default op)*
+- `mobgrab.update` — run `/mobgrab update` to install the latest release *(default op)*
 - `mobgrab.bypass.protection` — ignore region checks *(default op)*
 
 > Admins (OP) can grab/place out of the box. To let **non-op players** pick up mobs, grant

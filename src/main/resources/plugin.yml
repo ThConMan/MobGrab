@@ -440,6 +440,9 @@ permissions:
   mobgrab.admin:
     description: Access to /mobgrab GUI and reload commands
     default: op
+  mobgrab.update:
+    description: Run /mobgrab update (downloads and installs the latest release jar)
+    default: op
   mobgrab.bypass.protection:
     description: Bypass WorldGuard/GriefPrevention/PlotSquared region checks
     default: op
