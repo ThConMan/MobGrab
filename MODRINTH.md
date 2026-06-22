@@ -10,7 +10,9 @@
 
 ---
 
-**Sneak + right-click** any mob to pocket it as a head item. **Right-click a block** to set it back down — health, equipment, enchants, name tags, villager trades, variants, age, all of it preserved. Nothing is lost in the round trip.
+**Sneak + right-click** any mob to pocket it as a head item. **Right-click a block** to set it back down — exactly as it was.
+
+Move your **tamed pets** — cats, wolves, parrots, horses — and they come back with their owner, collar colour, and sit state intact. Relocate **villagers** without losing a single trade. Carry **any mob**: health, equipment, enchants, name tags, variants, age — nothing is lost in the round trip.
 
 No NMS hacks, no resource pack. Just grab, carry, place.
 
@@ -18,8 +20,8 @@ No NMS hacks, no resource pack. Just grab, carry, place.
 
 | Feature | What it does |
 |---|---|
-| 🐾 **Every living mob** | All 90+ mobs supported, each with its own head texture in hand and in the GUI |
-| 📦 **Full data preserved** | Trades, profession, equipment, enchants, custom names, variants, age — survives every grab |
+| 🐾 **Pets, villagers & every mob** | All 90+ mobs supported — tamed cats/wolves/parrots/horses, traders, livestock, even bosses — each with its own head texture |
+| 📦 **Full data preserved** | Owner, collar colour, sit state, trades, equipment, enchants, custom names, variants, age — survives every grab |
 | 🔥 **Fireproof items** | Optional: pocketed mobs survive fire & lava like netherite. Toggle it live, no restart |
 | 🎛️ **Admin GUI** | `/mobgrab gui` — category filters, search, bulk enable/disable |
 | 🌍 **Per-world control** | Disable grabbing in specific worlds, or block regions with a WorldGuard `mob-grab` flag |
