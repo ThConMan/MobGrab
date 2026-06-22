@@ -21,7 +21,12 @@ public final class RoseStackerHook {
         RoseStackerAPI api = RoseStackerAPI.getInstance();
         StackedEntity stacked = api.getStackedEntity(entity);
         if (stacked != null && stacked.getStackSize() > 1) {
+            // decreaseStackSize() ejects THIS entity out of the stack as a loose, unstacked
+            // mob (with a pop-out velocity) and spawns a fresh head for the remaining N-1.
+            // We've already captured this mob into the player's item, so remove the ejected
+            // one — otherwise it's duplicated (in the item and still in the world).
             stacked.decreaseStackSize();
+            entity.remove();
         }
     }
 
