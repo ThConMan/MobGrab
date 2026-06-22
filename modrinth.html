@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MobGrab — Modrinth description</title>
+<style>
+  :root{--bg:#0a0e0d;--card:#111614;--border:#27332c;--accent:#3fb950;--text:#e6edf3;--muted:#8b949e}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,Segoe UI,Roboto,sans-serif;
+       background-image:radial-gradient(ellipse 90% 50% at 50% -10%,rgba(63,185,80,.15),transparent 60%);
+       min-height:100vh;padding:20px}
+  .wrap{max-width:840px;margin:0 auto}
+  h1{font-size:1.3rem;margin:.2em 0}
+  p.sub{color:var(--muted);margin:.2em 0 1em}
+  .bar{position:sticky;top:0;background:var(--bg);padding:12px 0;z-index:5;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  button{background:linear-gradient(135deg,#3fb950,#2ea043);color:#04110a;border:0;border-radius:10px;
+          padding:14px 22px;font-size:1.05rem;font-weight:700;cursor:pointer;box-shadow:0 6px 22px rgba(63,185,80,.25)}
+  button:active{transform:translateY(1px)}
+  #status{color:var(--accent);font-weight:600}
+  textarea{width:100%;height:60vh;background:var(--card);color:var(--text);border:1px solid var(--border);
+           border-radius:12px;padding:16px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.82rem;
+           line-height:1.5;resize:vertical;white-space:pre}
+  .hint{color:var(--muted);font-size:.85rem;margin-top:10px}
+</style></head>
+<body><div class="wrap">
+  <h1>MobGrab — Modrinth description</h1>
+  <p class="sub">Tap <b>Copy</b>, then paste into Modrinth's description (markdown) box.</p>
+  <div class="bar">
+    <button id="copy">📋 Copy description</button>
+    <span id="status"></span>
+  </div>
+  <textarea id="md" readonly>&lt;div align=&quot;center&quot;&gt;
+
+&lt;img src=&quot;https://thconman.github.io/MobGrab/logo.png&quot; width=&quot;220&quot; alt=&quot;MobGrab&quot;&gt;
+
+# MobGrab
+
+### Pick up any mob as an item — and place it back down exactly as it was.
+
+![Paper](https://img.shields.io/badge/Paper-26.1.2_–_26.2-3FB950?style=for-the-badge&amp;logo=papermc&amp;logoColor=white)
+![Java](https://img.shields.io/badge/Java-25-F89820?style=for-the-badge&amp;logo=openjdk&amp;logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-58A6FF?style=for-the-badge)
+
+&lt;/div&gt;
+
+---
+
+**Sneak + right-click** any mob to pocket it as a head item. **Right-click a block** to set it back down — health, equipment, enchants, name tags, villager trades, variants, age, all of it preserved. Nothing is lost in the round trip.
+
+No NMS hacks, no resource pack. Just grab, carry, place.
+
+## ✨ Features
+
+| | |
+|---|---|
+| 🐾 **Every living mob** | All 90+ mobs supported, each with its own head texture in hand and in the GUI |
+| 📦 **Full data preserved** | Trades, profession, equipment, enchants, custom names, variants, age — survives every grab |
+| 🔥 **Fireproof items** | Optional: pocketed mobs survive fire &amp; lava like netherite. Toggle it live, no restart |
+| 🎛️ **Admin GUI** | `/mobgrab gui` — category filters, search, bulk enable/disable |
+| 🌍 **Per-world control** | Disable grabbing in specific worlds, or block regions with a WorldGuard `mob-grab` flag |
+| 🧪 **Preset engine** | Build custom trader villagers in config, or snapshot **any** mob with `/mobgrab save` |
+| 🔌 **Plays nice** | WorldGuard · GriefPrevention · PlotSquared · RoseStacker · Geyser/Floodgate (Bedrock form GUI) |
+
+## 🚀 Quick Start
+
+1. Drop **`MobGrab.jar`** into your server&#x27;s `plugins/` folder.
+2. Restart the server.
+3. **Sneak + right-click** a mob → it becomes a head item.
+4. **Right-click a block** → the mob returns, exactly as it was.
+5. Run **`/mobgrab gui`** to choose which mobs are grabbable.
+
+&gt; Ops can grab and place out of the box. To let regular players grab mobs, grant `mobgrab.pickup.*` and `mobgrab.place` with a permissions plugin like LuckPerms.
+
+## 🎮 Commands
+
+| Command | Description |
+|---|---|
+| `/mobgrab gui` | Open the mob toggle GUI |
+| `/mobgrab enable\|disable &lt;mob&gt;` | Turn a mob on or off for pickup |
+| `/mobgrab status` | Show enabled count and current settings |
+| `/mobgrab give &lt;player\|@s&gt; &lt;preset&gt;` | Hand out a preset mob item |
+| `/mobgrab save &lt;name&gt;` | Save the mob you&#x27;re looking at as a preset |
+| `/mobgrab reload` | Reload config and presets |
+
+## ⚙️ Requirements
+
+- **Paper 26.1.2 or 26.2**
+- **Java 25**
+
+## 📖 Documentation
+
+Full permissions, configuration, and the preset guide live here:
+**[thconman.github.io/MobGrab](https://thconman.github.io/MobGrab/)**
+
+---
+
+&lt;div align=&quot;center&quot;&gt;
+
+*Built for survival servers, creative builds, and anyone who&#x27;s ever wanted to relocate a villager without a boat and three hours of regret.*
+
+&lt;/div&gt;
+</textarea>
+  <p class="hint">This is the raw markdown source. The page is unlisted — only people with the link see it.</p>
+</div>
+<script>
+  const ta=document.getElementById('md'),btn=document.getElementById('copy'),st=document.getElementById('status');
+  btn.addEventListener('click',async()=>{
+    const text=ta.value;
+    try{ await navigator.clipboard.writeText(text); }
+    catch(e){ ta.focus(); ta.select(); document.execCommand('copy'); }
+    st.textContent='Copied! ✓'; setTimeout(()=>st.textContent='',2500);
+  });
+</script>
+</body></html>
