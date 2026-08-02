@@ -183,7 +183,8 @@
      * correct values, so a failed or rate-limited request changes nothing. */
     function release() {
         var badge = document.getElementById('version-badge');
-        if (!badge && !document.getElementById('download-btn')) return;
+        var docsVersion = document.getElementById('docs-version');
+        if (!badge && !docsVersion && !document.getElementById('download-btn')) return;
 
         fetch('https://api.github.com/repos/ThConMan/MobGrab/releases/latest')
             .then(function (r) { return r.ok ? r.json() : null; })
@@ -191,6 +192,11 @@
                 if (!data) return;
                 if (data.tag_name && badge) {
                     badge.textContent = 'Paper 26.1.2 – 26.2 • ' + data.tag_name;
+                }
+                // Keeps the docs reference version in step with the release
+                // instead of drifting the next time one ships.
+                if (data.tag_name && docsVersion) {
+                    docsVersion.textContent = data.tag_name;
                 }
                 var jar = data.assets && data.assets.filter(function (a) {
                     return a.name && a.name.slice(-4) === '.jar';
