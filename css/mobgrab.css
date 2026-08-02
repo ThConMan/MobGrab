@@ -31,12 +31,17 @@
     --amber:      #e8b64c;
     --amber-deep: #a97a1d;
 
-    --text:       #e9f2ea;
-    --text-dim:   #a2b6a7;
-    /* Lightened from #6f8476, which measured 4.09:1 on --surface-2 and so
-       failed WCAG AA for the small uppercase labels it is used on. Now 5.2:1
-       against the lightest surface it ever sits on. */
-    --text-faint: #7f9686;
+    /* These are pushed well past the WCAG AA floor on purpose. AA (4.5:1) is a
+       minimum for legibility, not a target for comfort, and light-on-dark body
+       copy at the minimum reads as washed-out grey. Measured on --surface-2,
+       the lightest surface any of them sits on:
+         --text        16.0:1
+         --text-dim    10.6:1   body copy
+         --text-faint   7.2:1   captions and small labels
+       Nothing here is allowed to drop back toward the floor. */
+    --text:       #edf5ee;
+    --text-dim:   #c3d3c7;
+    --text-faint: #9db0a2;
 
     --line:        rgba(95, 217, 104, .15);
     --line-mid:    rgba(95, 217, 104, .3);
@@ -73,7 +78,9 @@ body {
     color: var(--text);
     background: var(--moss);
     font: 400 16px/1.7 Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
-    -webkit-font-smoothing: antialiased;
+    /* Deliberately NOT -webkit-font-smoothing: antialiased. On a dark ground it
+       strips the subpixel weight off light text, so greys render thinner and
+       noticeably fainter than their computed contrast implies. */
 }
 
 /* Ambient ground, fixed so it behaves like a backdrop the content moves over. */
