@@ -56,11 +56,17 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+
+/* clip, not hidden, and on both. The full-bleed section dividers below are
+   100vw, which includes the scrollbar and so overruns the layout viewport by
+   the scrollbar's width. `overflow-x: hidden` on body alone does not contain
+   that -- it propagates to the viewport and leaves body itself visible -- and
+   hidden would also break the sticky nav. clip does neither. */
+html { scroll-behavior: smooth; overflow-x: clip; }
 
 body {
     margin: 0;
-    overflow-x: hidden;
+    overflow-x: clip;
     color: var(--text);
     background: var(--moss);
     font: 400 16px/1.7 Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -486,6 +492,9 @@ main, .shell { width: var(--shell); margin: auto; }
 }
 .bento-wide { grid-column: span 3; }
 .bento-third { grid-column: span 2; }
+/* 1 / -1 rather than an explicit span: a fixed span would create implicit
+   columns once the grid narrows to fewer tracks, and drag the page wider. */
+.bento-full { grid-column: 1 / -1; }
 .feature-icon-wrap {
     display: grid;
     place-items: center;
@@ -681,9 +690,16 @@ main, .shell { width: var(--shell); margin: auto; }
     gap: 14px;
     margin-top: 20px;
 }
+/* Carries its own surface: the docs markup does not use .card-surface. */
 .docs-grid-item {
     padding: 20px;
+    border: 1px solid var(--line);
     border-radius: var(--radius);
+    background: linear-gradient(158deg, var(--surface-2), var(--surface-1) 62%, var(--moss-2));
+    box-shadow:
+        var(--shadow-md),
+        inset 0 1px 0 rgba(255, 255, 255, .05),
+        inset 0 -24px 44px -30px rgba(43, 143, 57, .5);
     transition: transform .28s var(--ease), border-color .28s var(--ease), box-shadow .28s var(--ease);
 }
 .docs-grid-item:hover {

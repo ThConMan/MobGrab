@@ -5,28 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MobGrab Documentation</title>
     <meta name="description" content="Full documentation for MobGrab including permissions, commands, configuration, and compatibility.">
+    <meta name="theme-color" content="#080c09">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/mobgrab.css">
 </head>
 <body>
 
 <nav class="nav">
     <div class="nav-inner">
-        <div class="nav-logo"><a href="index.html" style="color:inherit;">Mob<span>Grab</span></a></div>
+        <div class="nav-logo"><a href="index.html">Mob<span>Grab</span></a></div>
         <ul class="nav-links" id="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="docs.html" class="active">Docs</a></li>
             <li><a href="https://github.com/ThConMan/MobGrab">GitHub</a></li>
         </ul>
-        <button class="nav-burger" onclick="toggleMenu()" aria-label="Menu">
+        <button class="nav-burger" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
             <span></span><span></span><span></span>
         </button>
     </div>
 </nav>
-
-<div style="height: 4rem;"></div>
 
 <div class="docs-layout">
 
@@ -355,34 +354,11 @@ my_wolf:
 
 <footer class="footer">
     <div class="footer-inner">
-        <div class="nav-logo"><a href="index.html" style="color:inherit;">Mob<span>Grab</span></a></div>
+        <div class="nav-logo"><a href="index.html">Mob<span>Grab</span></a></div>
         <p>&copy; 2026 MobGrab. Made by Con.</p>
     </div>
 </footer>
 
-<script>
-function toggleMenu() {
-    document.getElementById('nav-links').classList.toggle('open');
-    document.querySelector('.nav-burger').classList.toggle('active');
-}
-
-// Highlight current section in TOC on scroll
-const tocLinks = document.querySelectorAll('.docs-toc a');
-const sections = document.querySelectorAll('.docs-section');
-
-window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(section => {
-        if (window.scrollY >= section.offsetTop - 100) {
-            current = section.id;
-        }
-    });
-    tocLinks.forEach(link => {
-        link.classList.toggle('active', link.getAttribute('href') === '#' + current);
-    });
-});
-</script>
-
-<script src="js/motion.js" defer></script>
+<script src="js/mobgrab.js" defer></script>
 </body>
 </html>
