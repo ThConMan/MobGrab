@@ -205,6 +205,8 @@
                     <tbody>
                         <tr><td><span class="mono">cooldown-seconds</span></td><td>1</td><td>Cooldown between pickups per player</td></tr>
                         <tr><td><span class="mono">blacklist-mode</span></td><td>false</td><td>false = whitelist (only listed mobs), true = blacklist (all except listed)</td></tr>
+                        <tr><td><span class="mono">fireproof-items</span></td><td>true</td><td>Grabbed mob items survive fire &amp; lava; can also be toggled live from the admin GUI</td></tr>
+                        <tr><td><span class="mono">disabled-worlds</span></td><td>[]</td><td>Worlds where MobGrab is fully disabled (no pickup or placement), by world folder name</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -332,7 +334,7 @@ my_wolf:
             <h3>Region Protection</h3>
             <p>Mobs can only be picked up or placed where the player has build permission. Supports:</p>
             <ul class="docs-list">
-                <li><strong>WorldGuard</strong> — checks the BUILD flag</li>
+                <li><strong>WorldGuard</strong> — checks the BUILD flag, plus a custom <span class="mono">mob-grab</span> region flag (set to <span class="mono">deny</span> to block pickups in a region)</li>
                 <li><strong>PlotSquared</strong> — checks plot ownership and membership</li>
                 <li><strong>GriefPrevention</strong> — checks claim build access</li>
             </ul>

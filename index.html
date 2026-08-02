@@ -34,7 +34,7 @@
     <h1>MobGrab</h1>
     <p class="tagline">Pick up any mob as an item. Place them back down. All data preserved.</p>
     <div class="plugin-hero-meta">
-        <span class="hero-badge" id="version-badge">Paper 26.1+</span>
+        <span class="hero-badge" id="version-badge">Paper 26.1.2 &ndash; 26.2</span>
         <span class="hero-badge">Java 25</span>
     </div>
     <div class="hero-buttons">
@@ -201,7 +201,7 @@ fetch('https://api.github.com/repos/ThConMan/MobGrab/releases/latest')
     .then(r => r.json())
     .then(data => {
         if (data.tag_name) {
-            document.getElementById('version-badge').textContent = 'Paper 26.1+ \u2022 ' + data.tag_name;
+            document.getElementById('version-badge').textContent = 'Paper 26.1.2 \u2013 26.2 \u2022 ' + data.tag_name;
         }
         const jar = data.assets && data.assets.find(a => a.name.endsWith('.jar'));
         if (jar) {
