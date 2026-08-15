@@ -625,8 +625,8 @@ main, .shell { width: var(--shell); margin: auto; }
     font-size: .84rem;
 }
 .footer-inner p { margin: 0; }
-/* Discord chip. When the server exists, swap .discord-soon for .discord-live
-   on an <a> and drop the invite in the href. */
+/* Discord chip. .discord-soon is the disabled state, kept for when a link is
+   not ready to publish. */
 .discord-chip {
     display: inline-flex;
     align-items: center;
