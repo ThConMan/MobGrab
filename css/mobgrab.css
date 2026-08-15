@@ -625,6 +625,25 @@ main, .shell { width: var(--shell); margin: auto; }
     font-size: .84rem;
 }
 .footer-inner p { margin: 0; }
+/* Discord chip. When the server exists, swap .discord-soon for .discord-live
+   on an <a> and drop the invite in the href. */
+.discord-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 7px;
+    padding: 7px 13px;
+    font: 500 .8rem/1 var(--mono);
+    text-decoration: none;
+}
+.discord-chip svg { width: 15px; height: 15px; flex: none; }
+.discord-soon { color: var(--text-dim); border: 1px dashed var(--line-mid); }
+.discord-live {
+    color: var(--grass-bright);
+    border: 1px solid var(--line-mid);
+    background: rgba(95, 217, 104, .08);
+}
+.discord-live:hover { background: rgba(95, 217, 104, .15); }
 
 /* ═══ docs page ═══════════════════════════════════════════════════════════ */
 .docs-layout {
