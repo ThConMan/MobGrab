@@ -191,7 +191,7 @@
             .then(function (data) {
                 if (!data) return;
                 if (data.tag_name && badge) {
-                    badge.textContent = 'Paper 26.1.2 – 26.2 • ' + data.tag_name;
+                    badge.textContent = 'Paper 26.2+ • ' + data.tag_name;
                 }
                 // Keeps the docs reference version in step with the release
                 // instead of drifting the next time one ships.
