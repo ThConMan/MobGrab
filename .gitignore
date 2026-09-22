@@ -19,3 +19,6 @@ Thumbs.db
 # Backups
 *.bak
 .gstack/
+
+# Salvage from the stale C:\Users\whitl\MobGrab checkout (see its README.txt)
+_salvage-stale-checkout-*/
