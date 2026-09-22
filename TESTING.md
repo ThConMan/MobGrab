@@ -1,9 +1,8 @@
-# MobGrab 2.1.3 — Human Testing Checklist (universal jar)
+# MobGrab 2.2.0 — Human Testing Checklist
 
-**One jar runs on both Paper 26.1.2 and 26.2.** Auto-validated on headless 26.1.2 and 26.2
-servers (loads, reloads, summons the new mobs, zero plugin errors). The items below need a
-real client and a human. The **sulfur cube** only exists on 26.2 — on your 26.1.2 server it
-simply won't appear (everything else is identical).
+**Targets Paper 26.2 only.** 2.2.0 compiles against the 26.2 API (`AbstractCubeMob`) and
+declares `api-version: '26.2'`, so it will not load on 26.1.2 — use 2.1.3 for those servers.
+The items below need a real client and a human.
 
 ## Build / deploy
 ```bash
@@ -12,10 +11,10 @@ cd ~/MobGrab
 # or drop straight into your SMP:
 ./gradlew build -PpluginDir=/home/con/smp/plugins
 ```
-Server must run **Paper 26.1.2** on **Java 25**.
+Server must run **Paper 26.2** on **Java 25**.
 
 ## Smoke (already auto-tested, re-confirm in-game)
-- [ ] Server starts, console shows `MobGrab v2.1.3 enabled` + `Loaded 90 mob toggles`.
+- [ ] Server starts, console shows `MobGrab v2.2.0 enabled` + `Loaded 91 mob toggles`.
 - [ ] `/mobgrab gui` opens the settings chest.
 
 ## All-mobs + new mobs
@@ -24,6 +23,15 @@ Server must run **Paper 26.1.2** on **Java 25**.
       zombie_nautilus** (also giant/illusioner).
 - [ ] Sneak + right-click each new mob → you get a head item; right-click a block to place it
       back with its state preserved.
+
+## Cube mobs (26.2 split — regression check)
+26.2 made `MagmaCube` a sibling of `Slime` rather than a subclass. MobGrab now branches on
+`AbstractCubeMob`, so all three cube mobs must behave identically:
+- [ ] Grab a **slime**, a **magma cube**, and a **sulfur cube** of a non-default size — each
+      head item's lore shows the correct **Size** line (Tiny / Small / Big).
+- [ ] Place each back down → it respawns at that same size.
+- [ ] A preset saved with a `size:` value applies to a **magma cube** and a **sulfur cube**,
+      not just a slime.
 
 ## Fireproof items (your request)
 - [ ] In the GUI, the **Fireproof Items** button (netherite ingot) toggles ON/OFF and persists.

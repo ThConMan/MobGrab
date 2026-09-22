@@ -1,7 +1,7 @@
 name: MobGrab
-version: '2.1.3'
+version: '2.2.0'
 main: com.mobgrab.MobGrab
-api-version: '1.21'
+api-version: '26.2'
 description: Pick up mobs as items, place them back down, and create custom mob presets
 author: Con
 website: https://thconman.github.io/MobGrab/

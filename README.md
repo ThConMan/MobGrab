@@ -5,13 +5,13 @@ entity state preserved (health, equipment, trades, name, variant, age, …). Inc
 villager/mob preset engine.
 
 - **Website:** https://thconman.github.io/MobGrab/
-- **Requires:** Paper **26.1.2 or 26.2** · **Java 25** — one jar, auto-adapts to the server version
+- **Requires:** Paper **26.2** · **Java 25**
 
 ## Features
 
 - **Sneak + right-click** a mob → it becomes a head item; **right-click a block** to place it back.
 - **All living mobs** supported, each with a custom head texture (camel husk, parched,
-  mannequin, nautilus, …; plus the **sulfur cube** automatically on 26.2 servers).
+  mannequin, nautilus, sulfur cube, …).
 - **Fireproof mob items** (optional) so a pocketed mob survives fire/lava like netherite —
   toggle live from the admin GUI.
 - **Admin GUI** (`/mobgrab gui`) with category filters, search-by-page, and bulk enable/disable.

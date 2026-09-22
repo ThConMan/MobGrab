@@ -4,7 +4,7 @@
 
 ### Pick up any mob as an item — and place it back down exactly as it was.
 
-![Paper 26.1.2 to 26.2](https://img.shields.io/badge/Paper-26.1.2_–_26.2-3FB950?style=for-the-badge&logo=papermc&logoColor=white)
+![Paper 26.2](https://img.shields.io/badge/Paper-26.2-3FB950?style=for-the-badge&logo=papermc&logoColor=white)
 ![Java 25](https://img.shields.io/badge/Java-25-F89820?style=for-the-badge&logo=openjdk&logoColor=white)
 ![License MIT](https://img.shields.io/badge/License-MIT-58A6FF?style=for-the-badge)
 
@@ -51,7 +51,7 @@ No NMS hacks, no resource pack. Just grab, carry, place.
 
 ## ⚙️ Requirements
 
-- **Paper 26.1.2 or 26.2**
+- **Paper 26.2**
 - **Java 25**
 
 ## 📖 Documentation
