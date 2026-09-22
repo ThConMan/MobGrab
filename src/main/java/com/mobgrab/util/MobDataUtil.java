@@ -202,13 +202,15 @@ public final class MobDataUtil {
             }
         }
 
-        // Slime / Magma Cube
-        if (entity instanceof Slime slime) {
-            String sizeName = switch (slime.getSize()) {
+        // Cube mobs: slime, magma cube, sulfur cube.
+        // As of 26.2 MagmaCube no longer extends Slime - both (and SulfurCube)
+        // extend AbstractCubeMob, which is where getSize() now lives.
+        if (entity instanceof AbstractCubeMob cube) {
+            String sizeName = switch (cube.getSize()) {
                 case 1 -> "Tiny";
                 case 2 -> "Small";
                 case 4 -> "Big";
-                default -> "Size " + slime.getSize();
+                default -> "Size " + cube.getSize();
             };
             lore.add(label("Size", sizeName, NamedTextColor.WHITE));
         }

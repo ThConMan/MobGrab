@@ -201,9 +201,11 @@ public class PresetManager {
                     creeper.setPowered(true);
                 }
 
-                // Slime / Magma Cube size
-                if (e instanceof Slime slime && section.contains("size")) {
-                    slime.setSize(section.getInt("size"));
+                // Cube mob size: slime, magma cube, sulfur cube.
+                // 26.2 split MagmaCube out from Slime; AbstractCubeMob is the
+                // common parent that still exposes setSize().
+                if (e instanceof AbstractCubeMob cube && section.contains("size")) {
+                    cube.setSize(section.getInt("size"));
                 }
 
                 // Equipment
