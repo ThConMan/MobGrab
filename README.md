@@ -5,7 +5,7 @@ entity state preserved (health, equipment, trades, name, variant, age, …). Inc
 villager/mob preset engine.
 
 - **Website:** https://thconman.github.io/MobGrab/
-- **Requires:** Paper **26.2** · **Java 25**
+- **Requires:** Paper **26.3** · **Java 25**
 
 ## Features
 
@@ -22,7 +22,7 @@ villager/mob preset engine.
 
 ## Build
 
-Requires JDK 25 (Paper 26.2's runtime). The Gradle wrapper is included.
+Requires JDK 25 (Paper 26.3's runtime). The Gradle wrapper is included.
 
 ```bash
 ./gradlew build                                   # -> build/libs/MobGrab.jar

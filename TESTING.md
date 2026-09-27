@@ -1,7 +1,9 @@
-# MobGrab 2.2.0 — Human Testing Checklist
+# MobGrab 2.3.0 — Human Testing Checklist
 
-**Targets Paper 26.2 only.** 2.2.0 compiles against the 26.2 API (`AbstractCubeMob`) and
-declares `api-version: '26.2'`, so it will not load on 26.1.2 — use 2.1.3 for those servers.
+**Targets Paper 26.3 only.** 2.3.0 compiles against the 26.3 API and declares
+`api-version: '26.3'`, so it will not load on 26.2 or 26.1.2 — use 2.2.0 (26.2) or
+2.1.3 (26.1.2) for those servers. 26.3 added no new mobs; the new `CUSHION` entity
+is not a living mob, so the toggle list is unchanged.
 The items below need a real client and a human.
 
 ## Build / deploy
@@ -11,10 +13,10 @@ cd ~/MobGrab
 # or drop straight into your SMP:
 ./gradlew build -PpluginDir=/home/con/smp/plugins
 ```
-Server must run **Paper 26.2** on **Java 25**.
+Server must run **Paper 26.3** on **Java 25**.
 
 ## Smoke (already auto-tested, re-confirm in-game)
-- [ ] Server starts, console shows `MobGrab v2.2.0 enabled` + `Loaded 91 mob toggles`.
+- [ ] Server starts, console shows `MobGrab v2.3.0 enabled` + `Loaded 91 mob toggles`.
 - [ ] `/mobgrab gui` opens the settings chest.
 
 ## All-mobs + new mobs
