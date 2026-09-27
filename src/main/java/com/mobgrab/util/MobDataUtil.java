@@ -300,6 +300,8 @@ public final class MobDataUtil {
         String serialized = EntitySerializer.serialize(entity);
         meta.getPersistentDataContainer().set(MobGrab.MOB_DATA_KEY, PersistentDataType.STRING, serialized);
         meta.getPersistentDataContainer().set(MobGrab.MOB_TYPE_KEY, PersistentDataType.STRING, type.name());
+        meta.getPersistentDataContainer().set(MobGrab.MOB_DATA_VERSION_KEY, PersistentDataType.INTEGER,
+                EntitySerializer.currentDataVersion());
         if (stackSize > 1) {
             meta.getPersistentDataContainer().set(MobGrab.MOB_STACK_KEY, PersistentDataType.INTEGER, stackSize);
         }

@@ -76,6 +76,7 @@ public final class PlaceListener implements Listener {
         var pdc = item.getItemMeta().getPersistentDataContainer();
         String data;
         String typeName;
+        Integer dataVersion = null;
 
         if (isClickVillagerItem) {
             data = pdc.get(MobGrab.CV_NBT_KEY, PersistentDataType.STRING);
@@ -83,6 +84,7 @@ public final class PlaceListener implements Listener {
         } else {
             data = pdc.get(MobGrab.MOB_DATA_KEY, PersistentDataType.STRING);
             typeName = pdc.get(MobGrab.MOB_TYPE_KEY, PersistentDataType.STRING);
+            dataVersion = pdc.get(MobGrab.MOB_DATA_VERSION_KEY, PersistentDataType.INTEGER);
         }
         if (data == null || typeName == null) return;
 
@@ -106,7 +108,7 @@ public final class PlaceListener implements Listener {
 
         Entity spawned;
         try {
-            spawned = EntitySerializer.deserialize(data, type, spawnLoc);
+            spawned = EntitySerializer.deserialize(data, type, spawnLoc, dataVersion);
         } catch (Exception e) {
             plugin.getLogger().warning("Failed to deserialize entity: " + e.getMessage());
             player.sendMessage(Component.text("Failed to place mob. Please contact an admin.", NamedTextColor.RED));

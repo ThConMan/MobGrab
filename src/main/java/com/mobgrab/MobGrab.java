@@ -18,6 +18,8 @@ public final class MobGrab extends JavaPlugin {
     public static final NamespacedKey MOB_DATA_KEY = new NamespacedKey("mobgrab", "mob_data");
     public static final NamespacedKey MOB_TYPE_KEY = new NamespacedKey("mobgrab", "mob_type");
     public static final NamespacedKey MOB_STACK_KEY = new NamespacedKey("mobgrab", "mob_stack");
+    /** Game data version the mob_data text was written at. Missing on items from before 2.3.0. */
+    public static final NamespacedKey MOB_DATA_VERSION_KEY = new NamespacedKey("mobgrab", "data_version");
 
     public static final NamespacedKey CV_VILLAGER_KEY = new NamespacedKey("clickvillagers", "villager");
     public static final NamespacedKey CV_TYPE_KEY = new NamespacedKey("clickvillagers", "type");

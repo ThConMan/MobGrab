@@ -95,7 +95,9 @@ public class PresetManager {
         Location tempLoc = world.getSpawnLocation().clone().add(0, 200, 0);
 
         try {
-            Entity entity = EntitySerializer.deserialize(snbt, entityType, tempLoc);
+            // Presets saved before 2.3.0 carry no version and are upgraded from 26.2.
+            Integer dataVersion = section.contains("data-version") ? section.getInt("data-version") : null;
+            Entity entity = EntitySerializer.deserialize(snbt, entityType, tempLoc, dataVersion);
             if (entity == null) return null;
 
             ItemStack item = MobDataUtil.createMobItem(entity);
@@ -411,6 +413,7 @@ public class PresetManager {
         String snbt = EntitySerializer.serialize(entity);
         presetsConfig.set(name + ".type", entity.getType().name());
         presetsConfig.set(name + ".snbt", snbt);
+        presetsConfig.set(name + ".data-version", EntitySerializer.currentDataVersion());
         save();
         plugin.getLogger().info("Saved preset: " + name + " (" + entity.getType().name() + ")");
     }

@@ -5,10 +5,22 @@ import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntitySnapshot;
 import org.bukkit.entity.EntityType;
+import org.bukkit.event.entity.CreatureSpawnEvent;
 
 public final class EntitySerializer {
 
+    /**
+     * The data version of Paper 26.2, which is what wrote every item and preset from before
+     * MobGrab stored a version (2.2.0 required 26.2). Anything unversioned is upgraded from here.
+     */
+    public static final int LEGACY_DATA_VERSION = 4903;
+
     private EntitySerializer() {}
+
+    /** The data version this server writes, to store next to anything {@link #serialize} returns. */
+    public static int currentDataVersion() {
+        return Bukkit.getUnsafe().getDataVersion();
+    }
 
     public static String serialize(Entity entity) {
         EntitySnapshot snapshot = entity.createSnapshot();
@@ -21,12 +33,34 @@ public final class EntitySerializer {
         return snbt;
     }
 
-    public static Entity deserialize(String snbt, EntityType type, Location location) {
+    /**
+     * Spawns the mob stored as {@code snbt}. {@code dataVersion} is the version it was written
+     * at, or null for data from before MobGrab recorded one.
+     *
+     * <p>The text sits inside plugin data, which a world upgrade never touches, so older data
+     * is run through the game's upgrader here, exactly as the world's own entities were.
+     * Without this, anything whose save format changed is silently dropped: 26.3 turned block
+     * states into strings, and an enderman picked up on 26.2 lost the block it was holding.
+     */
+    public static Entity deserialize(String snbt, EntityType type, Location location, Integer dataVersion) {
         // Also strip on the way in so items created before this fix (which still carry the
         // embedded stack NBT) place as a single clean mob instead of re-inflating the stack.
         snbt = stripPdcNamespace(snbt, "rosestacker");
-        EntitySnapshot snapshot = Bukkit.getEntityFactory().createEntitySnapshot(snbt);
-        return snapshot.createEntity(location);
+        int from = dataVersion != null ? dataVersion : LEGACY_DATA_VERSION;
+        if (from >= currentDataVersion()) {
+            EntitySnapshot snapshot = Bukkit.getEntityFactory().createEntitySnapshot(snbt);
+            return snapshot.createEntity(location);
+        }
+        byte[] nbt = SnbtNbt.entityBytes(snbt, type.getKey().toString(), from);
+        Entity entity = Bukkit.getUnsafe().deserializeEntity(nbt, location.getWorld(), false, true);
+        // Keep the facing it was saved with, as the snapshot path does.
+        Location at = location.clone();
+        at.setYaw(entity.getYaw());
+        at.setPitch(entity.getPitch());
+        if (!entity.spawnAt(at, CreatureSpawnEvent.SpawnReason.CUSTOM)) {
+            throw new IllegalStateException("spawn was cancelled");
+        }
+        return entity;
     }
 
     /**
