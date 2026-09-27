@@ -1,9 +1,14 @@
-# MobGrab 2.3.0 — Human Testing Checklist
+# MobGrab 2.3.1 — Human Testing Checklist
 
 **Targets Paper 26.3 only.** 2.3.0 compiles against the 26.3 API and declares
 `api-version: '26.3'`, so it will not load on 26.2 or 26.1.2 — use 2.2.0 (26.2) or
 2.1.3 (26.1.2) for those servers. 26.3 added no new mobs; the new `CUSHION` entity
 is not a living mob, so the toggle list is unchanged.
+
+**Mob items from older versions (2.3.1).** Items and presets now record the game data version
+they were written at, and older ones are run through the game's upgrader when placed. Check:
+- [ ] An enderman holding a block, picked up on a 26.2 server, still holds it when placed on 26.3.
+- [ ] A chicken jockey picked up on 26.2 comes back with its rider.
 The items below need a real client and a human.
 
 ## Build / deploy
@@ -16,7 +21,7 @@ cd ~/MobGrab
 Server must run **Paper 26.3** on **Java 25**.
 
 ## Smoke (already auto-tested, re-confirm in-game)
-- [ ] Server starts, console shows `MobGrab v2.3.0 enabled` + `Loaded 91 mob toggles`.
+- [ ] Server starts, console shows `MobGrab v2.3.1 enabled` + `Loaded 91 mob toggles`.
 - [ ] `/mobgrab gui` opens the settings chest.
 
 ## All-mobs + new mobs
